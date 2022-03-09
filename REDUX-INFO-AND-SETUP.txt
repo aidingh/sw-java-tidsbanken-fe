@@ -1,4 +1,4 @@
-Your redux reducers should be added inside the features folder. 
+Your redux reducers should be added inside the redux-features folder. 
 Create a new one for each use case e.g user, vacation etc.
 The boilerplate code for how to setup the actions and reducers is inside "user.js"
 
