@@ -1,0 +1,10 @@
+Your redux reducers should be added inside the features folder. 
+Create a new one for each use case e.g user, vacation etc.
+The boilerplate code for how to setup the actions and reducers is inside "user.js"
+
+In order to use your redux state inside your components you declare a variable like this: const user = useSelector((state) => state.user.value).
+In order to change the value of your state you declare: const dispatch = useDispatch(); inside your components.
+Then you can import your action and change it with the help of the dispatch e.g dispatch(login({name: "Janne", age: 71, email: "email@gmail.com"})).
+
+Don't forget to add each new redux feature to the store. You can find the store inside "index.js"
+
