@@ -43,7 +43,7 @@ export const useApiRequest = (url, options) => {
  */
 export const postData = async (url, body) => {
   try {
-    const response = fetch(`${url}`, {
+    const response = fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
