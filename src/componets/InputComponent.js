@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Form input component
+ * Input component
  * @param {handleChange} handleChange - Use to handle changes to input form.
- * @param {label} label - The label of the form e.g name, email etc.
- * @param {otherProps} otherProps - Props to make the input field unique.
+ * @param {label} label - The label of the form.
+ * @param {type} type The type of the input field.
  * @return {Component} returns then FormInputComponent
  */
 const FormInputComponent = ({handleChange, label, type}) => {
