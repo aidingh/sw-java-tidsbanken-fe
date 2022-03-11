@@ -5,6 +5,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
+import {postData} from '../Service/TimeBankService';
 /**
  * Returns modal component
  * @return {Component}
@@ -33,12 +34,21 @@ const ModalComponent = () => {
     console.log(title);
   }
 
+
   /**
  * submit form event
  * @param {*} event event
  */
   function handleSubmit(event) {
     event.preventDefault();
+
+    postData('http://localhost:8080/vacation',
+        {
+          title: title,
+          startPeriod: fromValue,
+          endPeriod: toValue,
+        },
+    );
   }
 
   return (
@@ -55,16 +65,16 @@ const ModalComponent = () => {
             <DatePicker
               label="From"
               value={fromValue}
-              onChange={(newValue) => {
-                setFrom(newValue);
+              onChange={(value) => {
+                setFrom(value);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
             <DatePicker
               label="To"
               value={toValue}
-              onChange={(newValue) => {
-                setTo(newValue);
+              onChange={(value) => {
+                setTo(value);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
