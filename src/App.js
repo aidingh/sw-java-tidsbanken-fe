@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage';
-import CalendarView from './components/CalendarView';
-import ModalComponent from './components/ModalComponent';
+import HomePage from './views/HomePage';
+import LoginPage from './views/LoginPage';
+import CalendarView from './views/CalendarPage';
+import ModalComponent from './componets/ModalComponent';
 
 /**
  * @return {Component} The app component
