@@ -6,6 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import {postData} from '../Service/TimeBankService';
+
 /**
  * Returns modal component
  * @return {Component} ModalComponent
@@ -15,6 +16,7 @@ const ModalComponent = () => {
   const [fromValue, setFrom] = useState([null, null]);
   const [toValue, setTo] = useState([null, null]);
   const [title, setTitle] = useState('');
+
   /**
    * Open the modal.
    * @return {Boolean}
@@ -28,7 +30,7 @@ const ModalComponent = () => {
   const handleClose = () => setOpen(false);
 
   /**
-  * get title value on change
+  * Get the value of title input on change
   * @param {event} event Fires the handleOnChange event.
   */
   function handleOnChange(event) {
@@ -37,12 +39,11 @@ const ModalComponent = () => {
 
 
   /**
- * submit form event
+ * Submits the vacation request
  * @param {event} event Fires the handleSubmit event.
  */
   function handleSubmit(event) {
     event.preventDefault();
-
     postData('http://localhost:8080/vacation',
         {
           title: title,
@@ -50,11 +51,17 @@ const ModalComponent = () => {
           endPeriod: toValue,
         },
     );
+    setTitle('');
+    setFrom([null, null]);
+    setTo([null, null]);
+    handleClose();
   }
 
   return (
     <>
-      <button onClick={handleOpen}>add requeston vacation</button>
+      <button className='bg-blue-500 hover:bg-blue-700 text-white
+       font-bold py-2 px-12 rounded'
+      onClick={handleOpen}>Vacation Request</button>
       <Modal className="flex h-screen"
         open={open}
         onClose={handleClose}
