@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import LoginPage from "./Components/LoginPage";
+import ProfilePage from "./Components/ProfilePage";
 import CalendarView from './Components/CalendarView';
 
 /**
@@ -13,6 +14,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="home" element={<HomePage />} />
+      <Route path="profile" element={<ProfilePage />} />
       <Route path="calendar" element={<CalendarView />} />
     </Routes>
   </Router>
