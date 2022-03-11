@@ -11,7 +11,7 @@ const CalendarView = () => {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        height="100%"
+        height="auto"
       />
     </>
   );
