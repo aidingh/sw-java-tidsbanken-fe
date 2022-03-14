@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import LoginPage from "./Components/LoginPage";
 import ProfilePage from "./Components/ProfilePage";
-import CalendarView from './Components/CalendarView';
+import CalendarView from "./Components/CalendarView";
+import LoadingSpinner from "./Components/Elements/LoadingSpinner";
 
 /**
  * @return {Component} The app component
@@ -11,13 +12,13 @@ import CalendarView from './Components/CalendarView';
 function App() {
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="home" element={<HomePage />} />
-      <Route path="profile" element={<ProfilePage />} />
-      <Route path="calendar" element={<CalendarView />} />
-    </Routes>
-  </Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="home" element={<HomePage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="calendar" element={<CalendarView />} />
+      </Routes>
+    </Router>
   );
 }
 

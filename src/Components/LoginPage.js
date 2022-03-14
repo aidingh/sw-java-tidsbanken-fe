@@ -78,27 +78,5 @@ function LoginPage() {
       )}
     </>
   );
-
-  return (
-    <>
-      {isAuthenticated && <Navigate to="/home" />}
-      {!isAuthenticated && (
-        <header className="header">
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-            onClick={startLoginAction}
-          >
-            Login
-          </button>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-            onClick={startAction}
-          >
-            test
-          </button>
-        </header>
-      )}
-    </>
-  );
 }
 export default LoginPage;

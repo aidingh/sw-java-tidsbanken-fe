@@ -1,4 +1,3 @@
-
 /**
  * This is just an example of how u can set up your redux reducer.
  * Just copy the boilerplate code down below and
@@ -24,6 +23,5 @@
 // })
 // This is where you export your actions
 // export const  {login, logout} = userSlice.actions
-
 
 // export default userSlice.reducer
