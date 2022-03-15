@@ -6,8 +6,7 @@ import tokenReducer from "./redux-features/tokenState";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore, persistReducer, persistor } from "redux-persist";
+import { persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 const persistConfig = {

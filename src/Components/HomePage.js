@@ -9,12 +9,17 @@ import { setToken } from "../redux-features/tokenState";
 import { useState, useEffect } from "react";
 
 const HomePage = () => {
+
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const jwtState = useSelector((state) => state.token_reducer);
+  const stateObject = Object.values(jwtState);
 
   useEffect(() => {
     async function setTokenToStore() {
-      dispatch(setToken({ jwt_token: await getToken() }));
+      if(stateObject[0].jwt_token == ''){
+        dispatch(setToken({ jwt_token: await getToken() }));
+      }
     }
     setTokenToStore();
   }, []);
@@ -38,6 +43,10 @@ const HomePage = () => {
     let path = `/profile`;
     navigate(path);
   }
+
+  const onRouteChange = (path) => {
+    navigate(path);
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
