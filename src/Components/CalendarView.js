@@ -1,13 +1,6 @@
-<<<<<<< HEAD
 import {React, useEffect, useState} from 'react';
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-=======
-import React from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-
->>>>>>> development
 /**
  *  @return {Component} The CalendarView component
  */
@@ -61,30 +54,12 @@ const CalendarView = () => {
   }, []);
 
   return (
-<<<<<<< HEAD
     <FullCalendar
       plugins={[dayGridPlugin]}
       initialView="dayGridMonth"
       events={eventData}
     >
     </FullCalendar>
-=======
-    <>
-      <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        weekends={false}
-        events={[
-          {
-            title: "event 1",
-            start: "2022-03-01",
-            end: "2022-03-03",
-          },
-          { title: "event 2", date: "2019-04-02" },
-        ]}
-      />
-    </>
->>>>>>> development
   );
 };
 
