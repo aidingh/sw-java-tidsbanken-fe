@@ -11,7 +11,15 @@ const CalendarView = () => {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        height="100%"
+        weekends={false}
+        events={[
+          {
+            title: "event 1",
+            start: "2022-03-01",
+            end: "2022-03-03",
+          },
+          { title: "event 2", date: "2019-04-02" },
+        ]}
       />
     </>
   );

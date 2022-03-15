@@ -1,29 +1,15 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function LoginPage() {
-  let navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
-  function routeChange() {
-    let path = `/home`;
-    navigate(path);
-  }
-
   const startLoginAction = (event) => {
+    console.log("is auth: " + isAuthenticated);
     event.preventDefault();
     loginWithRedirect();
   };
-
-  function startAction() {
-    console.log("is auth: " + isAuthenticated);
-  }
 
   return (
     <>

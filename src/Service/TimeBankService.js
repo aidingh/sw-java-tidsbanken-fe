@@ -9,7 +9,7 @@ export class TimeBankService extends Component {
   }
 
   async getUserData(jwt) {
-    console.log("wallabai " + jwt);
+    console.log("token in service " + jwt);
     try {
       let userResponse = fetch(`${"http://localhost:8080/api/v1/user/all"}`, {
         headers: {

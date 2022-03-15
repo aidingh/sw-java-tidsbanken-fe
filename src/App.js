@@ -5,7 +5,7 @@ import LoginPage from "./Components/LoginPage";
 import ProfilePage from "./Components/ProfilePage";
 import CalendarView from "./Components/CalendarView";
 import LoadingSpinner from "./Components/Elements/LoadingSpinner";
-
+import { PersistGate } from 'redux-persist/integration/react'
 /**
  * @return {Component} The app component
  */
