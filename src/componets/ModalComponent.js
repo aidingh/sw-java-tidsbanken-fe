@@ -16,6 +16,7 @@ const ModalComponent = () => {
   const [fromValue, setFrom] = useState([null, null]);
   const [toValue, setTo] = useState([null, null]);
   const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
 
   /**
    * Open the modal.
@@ -67,6 +68,10 @@ const ModalComponent = () => {
         onClose={handleClose}
       >
         <form className="w-96 h-96 bg-white m-auto flex flex-col">
+          <div className='self-center mt-6'>
+            <FormInputComponent isDisabled
+              label='Name' type='text' value={name}/>
+          </div>
           <div className='self-center mt-6'>
             <FormInputComponent handleChange={handleOnChange}
               label='Vacation request title' type='text' />
