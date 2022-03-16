@@ -8,6 +8,8 @@ import TextField from '@mui/material/TextField';
 import {postData} from '../Service/TimeBankService';
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import PropTypes from 'prop-types';
+
 
 /**
  * Returns modal component
@@ -99,6 +101,11 @@ const ModalComponent = ({handleOpen, open}) => {
     </>
   );
 };
+
+ModalComponent.prototypes = {
+  handleOpen: PropTypes.func,
+  open: PropTypes.bool
+}
 
 
 export default ModalComponent;
