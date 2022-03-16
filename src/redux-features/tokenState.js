@@ -1,7 +1,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialStateValue = { jwt_token: "" };
+const initialStateValue = { jwt_token: "", role: ""};
 
 export const tokenSlice = createSlice({
   name: "token_reducer",
@@ -10,6 +10,7 @@ export const tokenSlice = createSlice({
     setToken: (state, action) => {
       state.value = action.payload;
       console.log("token in reducer state:  " + state.value.jwt_token);
+      console.log("role in reducer state:  " + state.value.role);
     },
   },
 });

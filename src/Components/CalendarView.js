@@ -8,7 +8,7 @@ const CalendarView = () => {
   const [eventData, setEventData] = useState([]);
 
   useEffect(async () => {
-    const data = await fetch('http://localhost:80/vacation');
+    const data = await fetch('http://localhost:8080/vacation');
     const jsonData = await data.json();
 
     const events = [];
@@ -47,9 +47,7 @@ const CalendarView = () => {
       }
     });
 
-
     setEventData(events);
-
     console.log(events);
   }, []);
 

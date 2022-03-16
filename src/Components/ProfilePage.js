@@ -9,15 +9,14 @@ import { setToken } from "../redux-features/tokenState";
 import { useState, useEffect } from "react";
 
 function ProfilePage() {
-  const token = useSelector((state) => state.token_reducer);
-
+  const token = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user } = useAuth0();
 
   async function getUserData() {
-    console.log("token:  " + token);
-    const stateObject = Object.values(token);
-    console.log(stateObject[0].jwt_token);
-    let data = TimeBankService.getInstance().getUserData(stateObject[0].jwt_token);
+    console.log("token:  " + token.jwt_token);
+    let data = TimeBankService.getInstance().getUserData(
+      stateObject[0].jwt_token
+    );
     console.log("User data: " + Object.values(data));
   }
 
