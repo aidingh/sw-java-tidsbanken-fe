@@ -6,29 +6,35 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import {postData} from '../Service/TimeBankService';
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 /**
  * Returns modal component
  * @return {Component} ModalComponent
  */
-const ModalComponent = () => {
+const ModalComponent = ({handleOpen , open}) => {
   const [open, setOpen] = useState(false);
   const [fromValue, setFrom] = useState([null, null]);
   const [toValue, setTo] = useState([null, null]);
   const [title, setTitle] = useState('');
-  const [name, setName] = useState('');
+  const token = useSelector((state) => state.token_reducer.value)
+  const bearer = `Bearer ${token.jwt_token}`
+  const { user } = useAuth0();
+
 
   /**
-   * Open the modal.
+   * Open and closes the modal.
    * @return {Boolean}
    */
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if(!open) {
+      setOpen(true)
+    } else{
+      setOpen(false)
+    }
+  }
 
-  /**
-   * Close the modal.
-   * @return {Boolean}
-   */
-  const handleClose = () => setOpen(false);
 
   /**
   * Get the value of title input on change
@@ -45,17 +51,17 @@ const ModalComponent = () => {
  */
   function handleSubmit(event) {
     event.preventDefault();
-    postData('http://localhost:8080/vacation',
+    postData('http://localhost:8080/vacation',bearer,
         {
           title: title,
           startPeriod: fromValue,
           endPeriod: toValue,
-        },
+        }
     );
     setTitle('');
     setFrom([null, null]);
     setTo([null, null]);
-    handleClose();
+    handleOpen();
   }
 
   return (
@@ -65,12 +71,12 @@ const ModalComponent = () => {
       onClick={handleOpen}>Vacation Request</button>
       <Modal className="flex h-screen"
         open={open}
-        onClose={handleClose}
+        onClose={handleOpen}
       >
         <form className="w-96 h-96 bg-white m-auto flex flex-col">
           <div className='self-center mt-6'>
             <FormInputComponent isDisabled
-              label='Name' type='text' value={name}/>
+              label='Name' type='text' value={user.nickname}/>
           </div>
           <div className='self-center mt-6'>
             <FormInputComponent handleChange={handleOnChange}
