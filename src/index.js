@@ -6,8 +6,8 @@ import tokenReducer from "./Redux-Features/tokenState";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { persistStore, persistReducer} from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
   key: "root",
@@ -25,10 +25,10 @@ const store = configureStore({
   reducer: {
     token_reducer: persistedReducer,
   },
-  middleware: getDefaultMiddleware =>
-  getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 persistStore(store);
