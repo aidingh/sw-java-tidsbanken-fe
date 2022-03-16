@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import CalendarView from "../Views/CalendarPage";
+import CalendarView from "./CalendarPage";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import { setToken } from "../Redux-Features/tokenState";
 import { useState, useEffect } from "react";
