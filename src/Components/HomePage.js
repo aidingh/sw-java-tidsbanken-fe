@@ -5,7 +5,7 @@ import CalendarView from "./CalendarView";
 import LoadingSpinner from "./Elements/LoadingSpinner";
 import ApplicationFrame from "./Elements/ApplicationFrame";
 import { setToken } from "../redux-features/tokenState";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TimeBankService from "../Service/TimeBankService";
 
 const HomePage = () => {

@@ -7,7 +7,6 @@ function LoginPage() {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   const startLoginAction = (event) => {
-    console.log("is auth: " + isAuthenticated);
     event.preventDefault();
     loginWithRedirect();
   };

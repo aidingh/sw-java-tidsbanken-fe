@@ -1,23 +1,17 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { TimeBankService } from "../Service/TimeBankService";
 import LoadingSpinner from "./Elements/LoadingSpinner";
-import tokenReducer from "../redux-features/tokenState";
-import { setToken } from "../redux-features/tokenState";
-import { useState, useEffect } from "react";
 
 function ProfilePage() {
   const token = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user } = useAuth0();
 
   async function getUserData() {
-    console.log("token:  " + token.jwt_token);
     let data = TimeBankService.getInstance().getUserData(
       stateObject[0].jwt_token
     );
-    console.log("User data: " + Object.values(data));
   }
 
   if (isLoading) {

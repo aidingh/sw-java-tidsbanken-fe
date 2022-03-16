@@ -1,6 +1,4 @@
 import { Component } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-
 export class TimeBankService extends Component {
   static timeBankInstance = null;
 
@@ -9,7 +7,6 @@ export class TimeBankService extends Component {
   }
 
   async getUserData(jwt) {
-    console.log("token in service " + jwt);
     try {
       let userResponse = fetch(`${"http://localhost:8080/api/v1/user/all"}`, {
         headers: {
@@ -27,7 +24,6 @@ export class TimeBankService extends Component {
   }
 
   async getUserRole(jwt, userId) {
-    console.log("token in service " + jwt);
     try {
       let userResponse = fetch(
         `${"http://localhost:8080/api/v1/user/role/" + userId}`,
