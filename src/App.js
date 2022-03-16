@@ -4,7 +4,6 @@ import HomePage from "./Views/HomePage";
 import LoginPage from "./Views/LoginPage";
 import ProfilePage from "./Views/ProfilePage";
 import CalendarView from "./Views/CalendarPage";
-import { PersistGate } from 'redux-persist/integration/react'
 /**
  * @return {Component} The app component
  */
