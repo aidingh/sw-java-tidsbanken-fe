@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../Assets/youtube_profile_image.png";
+import logo from "../Assets/time-bank-logo.png";
 
 function LoginPage() {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
