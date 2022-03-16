@@ -52,9 +52,6 @@ const ModalComponent = ({handleOpen, open}) => {
 
   return (
     <>
-      {/* <button className='bg-blue-500 hover:bg-blue-700 text-white
-       font-bold py-2 px-12 rounded'
-      onClick={handleOpen}>Vacation Request</button> */}
       <Modal className="flex h-screen"
         open={open}
         onClose={handleOpen}
