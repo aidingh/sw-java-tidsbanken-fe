@@ -13,27 +13,13 @@ import { useAuth0 } from "@auth0/auth0-react";
  * Returns modal component
  * @return {Component} ModalComponent
  */
-const ModalComponent = ({handleOpen , open}) => {
-  const [open, setOpen] = useState(false);
+const ModalComponent = ({handleOpen, open}) => {
   const [fromValue, setFrom] = useState([null, null]);
   const [toValue, setTo] = useState([null, null]);
   const [title, setTitle] = useState('');
   const token = useSelector((state) => state.token_reducer.value)
   const bearer = `Bearer ${token.jwt_token}`
   const { user } = useAuth0();
-
-
-  /**
-   * Open and closes the modal.
-   * @return {Boolean}
-   */
-  const handleOpen = () => {
-    if(!open) {
-      setOpen(true)
-    } else{
-      setOpen(false)
-    }
-  }
 
 
   /**
@@ -66,9 +52,9 @@ const ModalComponent = ({handleOpen , open}) => {
 
   return (
     <>
-      <button className='bg-blue-500 hover:bg-blue-700 text-white
+      {/* <button className='bg-blue-500 hover:bg-blue-700 text-white
        font-bold py-2 px-12 rounded'
-      onClick={handleOpen}>Vacation Request</button>
+      onClick={handleOpen}>Vacation Request</button> */}
       <Modal className="flex h-screen"
         open={open}
         onClose={handleOpen}
