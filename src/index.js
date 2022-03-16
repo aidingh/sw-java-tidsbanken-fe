@@ -33,12 +33,6 @@ const store = configureStore({
 
 persistStore(store);
 
-/*const store = configureStore({
-  reducer: {
-    token_reducer: tokenReducer,
-  },
-});*/
-
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
