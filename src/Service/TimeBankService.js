@@ -1,4 +1,4 @@
-// import {useAuth0} from '@auth0/auth0-react';
+import React from "react";
 
 /**
  *
@@ -15,10 +15,12 @@ export const useApiRequest = (url, options) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [error, setError] = React.useState(null);
 
+
   React.useEffect(() => {
     /**
      * function to fetch data.
      */
+    
     const getData = async () => {
       try {
         const response = await fetch(url, options);
@@ -38,15 +40,17 @@ export const useApiRequest = (url, options) => {
 /**
  * A function to POST data
  * @param {String} url The API url with endpoint
+ * @param {String} bearer The bearer token
  * @param {Object} body The data you want to post
  * @return {Object} The data that is posted
  */
-export const postData = async (url, body) => {
+export const postData = async (url, bearer, body) => {
   try {
     const response = fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': bearer
       },
       body: JSON.stringify(body),
     });
