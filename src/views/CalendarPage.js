@@ -57,11 +57,7 @@ const CalendarView = () => {
         });
       }
     });
-
-
     setEventData(events);
-
-    console.log(events);
   }, []);
 
   return (
