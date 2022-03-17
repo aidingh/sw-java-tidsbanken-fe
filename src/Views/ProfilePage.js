@@ -1,11 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 
 function ProfilePage() {
 
+  const state = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user } = useAuth0();
-
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -23,6 +24,12 @@ function ProfilePage() {
             />
             <h2>{user.nickname}</h2>
             <p>{user.email}</p>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+              onClick={getUserData}
+            >
+              Get user data
+            </button>
           </div>
         </div>
       </div>
