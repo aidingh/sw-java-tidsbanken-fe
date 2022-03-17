@@ -9,6 +9,8 @@ export const tokenSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.value = action.payload;
+      console.log("role: " + state.value.role);
+      console.log("token: " + state.value.jwt_token);
     },
   },
 });

@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useFetch } from '../Service/TimeBankService';
 
-
 /**
  *  @return {Component} The CalendarView component
  */
@@ -16,13 +15,11 @@ const CalendarView = () => {
   const state = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${state.jwt_token}`;
 
-
   const { user } = useAuth0();
   let split = user.sub.split("|");
 
   const userId = split[1];
   const admin = state.role;
-
 
   /**
 * Open and closes the modal.
