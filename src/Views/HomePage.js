@@ -35,7 +35,10 @@ const HomePage = () => {
   }
 
   async function getUserRole(clientId) {
-    const bearer = `Bearer ${token.jwt_token}`;
+    let temp = await getToken()
+    const bearer = `Bearer ${temp}`;
+    console.log(clientId)
+    console.log(bearer)
     let data = await useFetch(`http://localhost:8080/api/v1/user/role/${clientId}`, bearer);
     return data[0].name;
   }
