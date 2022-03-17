@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import tokenReducer from "../src/Redux-features/tokenState";
+import tokenReducer from "../src/Redux-Features/tokenState";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
