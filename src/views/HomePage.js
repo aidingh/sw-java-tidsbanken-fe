@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CalendarView from "./CalendarPage";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import ApplicationFrame from "../Elements/ApplicationFrame";
-import { setToken } from "../Redux-Features/tokenState";
+import { setToken } from "../Redux-features/tokenState";
 import { useEffect } from "react";
 
 const HomePage = () => {

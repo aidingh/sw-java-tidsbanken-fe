@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import {useSelector} from "react-redux";
 const ApplicationFrame = ({ startLogOutAction }) => {
+  let isAdmin = true;
+
   return (
     <div class="py-6 ...">
       <nav class="px-2 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -12,6 +14,14 @@ const ApplicationFrame = ({ startLogOutAction }) => {
               </span>
             </a>
             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+            <li>
+                {isAdmin && <NavLink
+                  to="/createUser"
+                  className="block py-2 pr-4 pl-3 text-gray-700 text-lg border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 dark:hover:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                >
+                  Create User
+                </NavLink>}
+              </li>
               <li>
                 <NavLink
                   to="/home"
