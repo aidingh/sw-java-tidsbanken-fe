@@ -1,19 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import { TimeBankService } from "../Service/TimeBankService";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 
 function ProfilePage() {
+
   const state = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user } = useAuth0();
-
-  async function getUserData() {
-    let data = TimeBankService.getInstance().getUserData(
-      state.jwt_token
-    );
-    console.log(await data);
-  }
 
   if (isLoading) {
     return <LoadingSpinner />;

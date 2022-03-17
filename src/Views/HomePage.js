@@ -1,19 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import CalendarView from "./CalendarView";
+import CalendarView from "./CalendarPage";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import ApplicationFrame from "../Elements/ApplicationFrame";
-import { setToken } from "../redux-features/tokenState";
+import { setToken } from "../Redux-Features/tokenState";
 import { useEffect } from "react";
-import TimeBankService from "../Service/TimeBankService";
+import {useFetch} from "../Service/TimeBankService";
 import { useState } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
-  const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0();
+  const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } = useAuth0();
+  const token = useSelector((state) => state.token_reducer.value);
 
   const [role, setRole] = useState([]);
 
@@ -35,13 +35,9 @@ const HomePage = () => {
   }
 
   async function getUserRole(clientId) {
-    let data = await TimeBankService.getInstance().getUserRole(
-      await getToken(),
-      clientId
-    );
-    let object = Object.values(data);
-    console.log();
-    return object[0].name;
+    const bearer = `Bearer ${token.jwt_token}`;
+    let data = await useFetch(`http://localhost:8080/api/v1/user/role/${clientId}`, bearer);
+    return data[0].name;
   }
 
   async function getToken() {

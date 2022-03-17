@@ -1,46 +1,50 @@
-import { Component } from "react";
-export class TimeBankService extends Component {
-  static timeBankInstance = null;
 
-  static getInstance() {
-    return new TimeBankService();
-  }
-
-  async getUserData(jwt) {
-    try {
-      let userResponse = fetch(`${"http://localhost:8080/api/v1/user/all"}`, {
-        headers: {
-          authorization: `Bearer ${jwt}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if ((await userResponse).ok) {
-        let data = (await userResponse).json();
-        return data;
+/**
+ * 
+ * @param {String} url The API url with endpoint
+ * @param {String} bearer The bearer token
+ * @return {Object} The fetched data
+ */
+export const useFetch = async (url, bearer) => {
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': bearer
       }
-    } catch (error) {
-      console.error(error);
-    }
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
   }
+};
 
-  async getUserRole(jwt, userId) {
-    try {
-      let userResponse = fetch(
-        `${"http://localhost:8080/api/v1/user/role/" + userId}`,
-        {
-          headers: {
-            authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if ((await userResponse).ok) {
-        let data = (await userResponse).json();
-        return data;
-      }
-    } catch (error) {
-      console.error(error);
+/**
+ * A function to POST data
+ * @param {String} url The API url with endpoint
+ * @param {String} bearer The bearer token
+ * @param {Object} body The data you want to post
+ * @return {Object} The data that is posted
+ */
+export const postData = async (url, bearer, body) => {
+  try {
+    const response = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': bearer
+      },
+      body: JSON.stringify(body),
+    });
+
+    if ((await response).ok) {
+      const data = (await response).json();
+      return data;
     }
+  } catch (error) {
+    console.error(error);
   }
-}
-export default TimeBankService;
+};

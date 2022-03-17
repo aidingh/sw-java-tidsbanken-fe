@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./Components/HomePage";
-import LoginPage from "./Components/LoginPage";
-import ProfilePage from "./Components/ProfilePage";
-import CalendarView from "./Components/CalendarView";
-
+import HomePage from "./Views/HomePage";
+import LoginPage from "./Views/LoginPage";
+import ProfilePage from "./Views/ProfilePage";
+import CalendarView from "./Views/CalendarPage";
 /**
  * @return {Component} The app component
  */
