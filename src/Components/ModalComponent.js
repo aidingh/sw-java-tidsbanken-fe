@@ -19,7 +19,7 @@ const ModalComponent = ({ handleOpen, open }) => {
       onClose={handleOpen}
     >
       <>
-        <VacationRequestFormPage ref={ref} />
+        <VacationRequestFormPage handleOpen={handleOpen} ref={ref} />
       </>
     </Modal>
   );

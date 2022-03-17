@@ -8,7 +8,7 @@ import { postData } from '../Service/TimeBankService';
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const VacationRequestFormPage = forwardRef((props, ref) => {
+const VacationRequestFormPage = forwardRef(({ handleOpen }, ref) => {
     const [fromValue, setFrom] = useState([null, null]);
     const [toValue, setTo] = useState([null, null]);
     const [title, setTitle] = useState('');
