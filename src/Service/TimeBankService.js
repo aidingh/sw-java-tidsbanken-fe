@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 /**
  *
@@ -10,31 +10,21 @@ import React from "react";
  * @return {Boolean} If the data has loaded or not
  * @return {String} Error message
  */
-export const useApiRequest = (url, options) => {
-  const [data, setData] = React.useState([]);
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const [error, setError] = React.useState(null);
 
-
-  React.useEffect(() => {
-    /**
-     * function to fetch data.
-     */
-    
-    const getData = async () => {
-      try {
-        const response = await fetch(url, options);
-        const json = await json(response);
-        setData(json);
-        setIsLoaded(true);
-      } catch (error) {
-        setError(console.error());
+export const useFetch = async (url, bearer) => {
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': bearer
       }
-    };
-    getData();
-  }, [url]);
-
-  return {error, isLoaded, data};
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -50,6 +40,7 @@ export const postData = async (url, bearer, body) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
         'Authorization': bearer
       },
       body: JSON.stringify(body),
