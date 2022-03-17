@@ -5,14 +5,8 @@ import { TimeBankService } from "../Service/TimeBankService";
 import LoadingSpinner from "./Elements/LoadingSpinner";
 
 function ProfilePage() {
-  const token = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user } = useAuth0();
 
-  async function getUserData() {
-    let data = TimeBankService.getInstance().getUserData(
-      stateObject[0].jwt_token
-    );
-  }
 
   if (isLoading) {
     return <LoadingSpinner />;
