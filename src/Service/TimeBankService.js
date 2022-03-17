@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
 
 /**
- *
- * To use this custom fetch hook import and call
- * const { data, error, isLoaded } = useApiRequest(url);
- * @param {String} url The API url and endpoint
- * @param {Object} options Headers and so forth
- * @return {Array} The data you want to fetch
- * @return {Boolean} If the data has loaded or not
- * @return {String} Error message
+ * 
+ * @param {String} url The API url with endpoint
+ * @param {String} bearer The bearer token
+ * @return {Object} The fetched data
  */
-
 export const useFetch = async (url, bearer) => {
   try {
     const response = await fetch(url, {
