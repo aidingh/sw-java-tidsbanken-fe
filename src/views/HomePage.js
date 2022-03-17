@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CalendarView from "./CalendarPage";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import ApplicationFrame from "../Elements/ApplicationFrame";
+import { useFetch } from "../Service/TimeBankService";
 import { setToken } from "../Redux-Features/tokenState";
 import { useEffect } from "react";
 
@@ -14,6 +15,7 @@ const HomePage = () => {
     useAuth0();
 
   const roleState = useSelector((state) => state.token_reducer.value);
+  const bearer = `Bearer ${roleState.jwt_token}`;
 
   useEffect(() => {
     async function setTokenToStore() {
@@ -24,13 +26,11 @@ const HomePage = () => {
   }, []);
 
   async function getUserRole() {
-    let split = user.sub.split("|");
-    let data = await TimeBankService.getInstance().getUserRole(
-      await getToken(),
-      split[1]
-    );
-    const object = Object.values(data);
-    return object[0].name;
+    const splitUserId = await user.sub.split("|");
+    const userId = await splitUserId[1];
+
+    let data = await useFetch(`http://localhost:8080/api/v1/user/role/${userId}`, bearer);
+    return data[0].name;
   }
 
   async function getToken() {
