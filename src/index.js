@@ -7,6 +7,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from 'redux-persist/integration/react'
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
@@ -31,7 +32,7 @@ const store = configureStore({
     }),
 });
 
-persistStore(store);
+let persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -42,7 +43,9 @@ ReactDOM.render(
       audience={audience}
     >
       <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <App />
+        </PersistGate>
       </Provider>
     </Auth0Provider>
   </React.StrictMode>,

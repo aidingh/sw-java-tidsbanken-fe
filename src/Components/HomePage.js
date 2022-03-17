@@ -1,12 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import CalendarView from "./CalendarView";
-import LoadingSpinner from "./Elements/LoadingSpinner";
-import ApplicationFrame from "./Elements/ApplicationFrame";
+import LoadingSpinner from "../Elements/LoadingSpinner";
+import ApplicationFrame from "../Elements/ApplicationFrame";
 import { setToken } from "../redux-features/tokenState";
 import { useEffect } from "react";
 import TimeBankService from "../Service/TimeBankService";
+import { useState } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,23 +15,32 @@ const HomePage = () => {
   const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0();
 
-  const roleState = useSelector((state) => state.token_reducer.value);
+  const [role, setRole] = useState([]);
 
   useEffect(() => {
-    async function setTokenToStore() {
-      let role = await getUserRole();
-      dispatch(setToken({ jwt_token: await getToken(), role: role }));
+    if (isAuthenticated) {
+      startReducer(user);
     }
-    setTokenToStore();
-  }, []);
+  }, [isAuthenticated]);
 
-  async function getUserRole() {
+  async function startReducer(user) {
     let split = user.sub.split("|");
+    await setTokenToStore(split[1]);
+  }
+
+  async function setTokenToStore(clientId) {
+    let role = await getUserRole(clientId);
+    setRole(role);
+    dispatch(setToken({ jwt_token: await getToken(), role: role }));
+  }
+
+  async function getUserRole(clientId) {
     let data = await TimeBankService.getInstance().getUserRole(
       await getToken(),
-      split[1]
+      clientId
     );
-    const object = Object.values(data);
+    let object = Object.values(data);
+    console.log();
     return object[0].name;
   }
 
@@ -44,6 +54,7 @@ const HomePage = () => {
   function startLogOutAction() {
     let startPagePath = "http://localhost:3000/";
     logout({ startPagePath });
+    localStorage.clear();
   }
 
   if (isLoading) {
@@ -54,13 +65,13 @@ const HomePage = () => {
     isAuthenticated && (
       <header className="header">
         <ApplicationFrame startLogOutAction={startLogOutAction} />
-        <div class="px-8 ...">
-          <div class="text-right">
+        <div className="px-8 ...">
+          <div className="text-right">
             <h2>{"User:  " + user.nickname}</h2>
-            <h2>{"Role:  " + roleState.role}</h2>
+            <h2>{"Role:  " + role}</h2>
           </div>
         </div>
-        <div class="p-8 ...">
+        <div className="p-8 ...">
           <CalendarView />
         </div>
       </header>

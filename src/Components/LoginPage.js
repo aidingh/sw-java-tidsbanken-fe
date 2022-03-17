@@ -17,33 +17,33 @@ function LoginPage() {
       {!isAuthenticated && (
         <header className="header">
           <div className="flex h-screen justify-center items-center">
-            <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-              <div class="min-h-full flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+            <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+              <div className="min-h-full flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
                 <div class="max-w-md w-full space-y-8">
                   <div>
                     <img
-                      class="mx-auto h-22 w-auto"
+                      className="mx-auto h-22 w-auto"
                       src={logo}
                       alt="Workflow"
                     />
-                    <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
+                    <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
                       Welcome to Time Bank
                     </h2>
                   </div>
-                  <form class="mt-8 space-y-6" onClick={startLoginAction}>
+                  <form className="mt-8 space-y-6" onClick={startLoginAction}>
                     <input type="hidden" name="remember" value="true" />
-                    <div class="rounded-md shadow-sm -space-y-px"></div>
+                    <div className="rounded-md shadow-sm -space-y-px"></div>
 
-                    <div class="flex items-center justify-between"></div>
+                    <div className="flex items-center justify-between"></div>
 
                     <div>
                       <button
                         type="submit"
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-cyan-500 hover:bg-zinc-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-cyan-500 hover:bg-zinc-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
-                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                        <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                           <svg
-                            class="h-5 w-5 text-black-500 group-hover:text-black-400"
+                            className="h-5 w-5 text-black-500 group-hover:text-black-400"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
