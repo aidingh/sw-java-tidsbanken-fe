@@ -8,7 +8,7 @@ import { postData } from '../Service/TimeBankService';
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const VacationRequestFormPage = forwardRef(({ handleOpen }, ref) => {
+const VacationRequestFormPage = ({ handleOpen }) => {
     const [fromValue, setFrom] = useState([null, null]);
     const [toValue, setTo] = useState([null, null]);
     const [title, setTitle] = useState('');
@@ -47,7 +47,7 @@ const VacationRequestFormPage = forwardRef(({ handleOpen }, ref) => {
 
 
     return (
-        <form ref={ref} className="w-96 h-96 bg-white m-auto flex flex-col">
+        <form className="w-96 h-96 bg-white m-auto flex flex-col">
             <div className='self-center mt-6'>
                 <FormInputComponent isDisabled
                     label='Name' type='text' value={user.nickname} />
@@ -87,6 +87,6 @@ const VacationRequestFormPage = forwardRef(({ handleOpen }, ref) => {
             </div>
         </form>
     );
-});
+};
 
 export default VacationRequestFormPage;

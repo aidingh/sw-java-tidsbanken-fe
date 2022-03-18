@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import ModalComponent from '../Components/ModalComponent';
+import VacationRequestFormPage from "./VacationRequestFormPage";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useFetch } from '../Service/TimeBankService';
@@ -14,6 +15,7 @@ const CalendarView = () => {
   const [open, setOpen] = useState(false);
   const state = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${state.jwt_token}`;
+
 
   const { user } = useAuth0();
   let split = user.sub.split("|");
@@ -106,8 +108,9 @@ const CalendarView = () => {
         headerToolbar={{ center: 'vacationRequest' }}
       >
       </FullCalendar>
-      <ModalComponent handleOpen={handleOpen} open={open} />
-
+      <ModalComponent handleOpen={handleOpen} open={open}>
+        <VacationRequestFormPage />
+      </ModalComponent>
     </>
   );
 };
