@@ -8,6 +8,7 @@ import { setToken } from "../Redux-Features/tokenState";
 import { useEffect } from "react";
 import {useFetch} from "../Service/TimeBankService";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const HomePage = () => {
   const [role, setRole] = useState([]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isLoading) {
       startReducer(user);
     }
   }, [isAuthenticated]);
@@ -37,8 +38,6 @@ const HomePage = () => {
   async function getUserRole(clientId) {
     let temp = await getToken()
     const bearer = `Bearer ${temp}`;
-    console.log(clientId)
-    console.log(bearer)
     let data = await useFetch(`http://localhost:8080/api/v1/user/role/${clientId}`, bearer);
     return data[0].name;
   }
@@ -61,7 +60,9 @@ const HomePage = () => {
   }
 
   return (
-    isAuthenticated && (
+    <>
+    {!isAuthenticated && <Navigate to="/" />}
+    {isAuthenticated && (
       <header className="header">
         <ApplicationFrame startLogOutAction={startLogOutAction} />
         <div className="px-8 ...">
@@ -74,7 +75,10 @@ const HomePage = () => {
           <CalendarView />
         </div>
       </header>
-    )
+  )}
+    </>
   );
 };
 export default HomePage;
+
+//<h2> {"Please sign in to view page"}</h2>
