@@ -1,42 +1,61 @@
 import { useState } from "react";
 import InputComponent from "../Components/InputComponent"
-
+import { postData } from "../Service/TimeBankService";
+import { useSelector } from "react-redux";
 function CreateUserPage() {
+    const token = useSelector((state) => state.token_reducer.value);
+    const bearer = `Bearer ${token.jwt_token}`;
+
+    const [buttonText,setButtonText] = useState('Create User');
     const [email, setEmail] = useState([]);
     const [firstName, setFirstName] = useState([]);
     const [lastName, setLastName] = useState([]);
     const [password, setPassword] = useState([]);
-    const [isAdmin, setIsAdmin] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     function isAdminOnChange(event){
-        setIsAdmin(event.target.value);
-        console.log(isAdmin);
+      setIsAdmin(event.target.checked);
     }
     function passwordOnChange(event){
-        setPassword(event.target.value);
+      setPassword(event.target.value);
     }
     function lastNameOnChange(event){
-        setLastName(event.target.value);
+      setLastName(event.target.value);
     }
     function firstNameOnChange(event){
-        setFirstName(event.target.value);
+      setFirstName(event.target.value);
     }
     function emailOnChange(event){
-        setEmail(event.target.value);
+      setEmail(event.target.value);
     }
 
-    const submitForm = (event) => {
-        event.preventDefault();
-        console.log(email);
+    async function submitForm(event){
+      event.preventDefault();
+      setButtonText('Creating User....')
+
+      postData(`http://localhost:8080/api/v1/createUser`, bearer,
+      {
+        "firstName":firstName,
+        "lastName":lastName,
+        "email":email,
+        "isAdmin":isAdmin
+      },
+      () => {
+        alert("Created user " + email);
+        
+        setButtonText('Create User');
+        setPassword("");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
         console.log(firstName);
-        console.log(lastName);
-        console.log(password);
+      });
     }
 
   return (
       <form className="w-96 h-96 pt-10 bg-white m-auto flex flex-col">
           <div className='self-center mt-6'>
-            <InputComponent label="First Name" type="text" handleChange={firstNameOnChange}/>
+            <InputComponent label="First Name" type="text" value={firstName} handleChange={firstNameOnChange}/>
           </div>
 
           <div className='self-center mt-6'>
@@ -59,7 +78,7 @@ function CreateUserPage() {
 
           <div className='grow flex justify-center items-center'>
             <button className='bg-blue-500 hover:bg-blue-700
-            text-white font-bold py-2 px-12 rounded justify-self-center' onClick={submitForm}>Submit</button>
+            text-white font-bold py-2 px-12 rounded justify-self-center' onClick={submitForm}>{buttonText}</button>
           </div>
       </form>
   );
