@@ -32,7 +32,7 @@ const HomePage = () => {
   async function setTokenToStore(clientId) {
     let role = await getUserRole(clientId);
     setRole(role);
-    dispatch(setToken({ jwt_token: await getToken(), role: role }));
+    dispatch(setToken({ jwt_token: await getToken(), role: role , user: user}));
   }
 
   async function getUserRole(clientId) {
