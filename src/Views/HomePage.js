@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import CalendarView from "./CalendarPage";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import { setToken } from "../Redux-Features/tokenState";
 import { useEffect } from "react";
-import {useFetch} from "../Service/TimeBankService";
+import { useFetch } from "../Service/TimeBankService";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -35,10 +35,8 @@ const HomePage = () => {
   }
 
   async function getUserRole(clientId) {
-    let temp = await getToken()
+    let temp = await getToken();
     const bearer = `Bearer ${temp}`;
-    console.log(clientId)
-    console.log(bearer)
     let data = await useFetch(`http://localhost:8080/api/v1/user/role/${clientId}`, bearer);
     return data[0].name;
   }
