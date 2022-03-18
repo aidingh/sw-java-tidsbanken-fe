@@ -3,7 +3,24 @@ import InputComponent from "../Components/InputComponent"
 
 function CreateUserPage() {
     const [email, setEmail] = useState([]);
+    const [firstName, setFirstName] = useState([]);
+    const [lastName, setLastName] = useState([]);
+    const [password, setPassword] = useState([]);
+    const [isAdmin, setIsAdmin] = useState([]);
 
+    function isAdminOnChange(event){
+        setIsAdmin(event.target.value);
+        console.log(isAdmin);
+    }
+    function passwordOnChange(event){
+        setPassword(event.target.value);
+    }
+    function lastNameOnChange(event){
+        setLastName(event.target.value);
+    }
+    function firstNameOnChange(event){
+        setFirstName(event.target.value);
+    }
     function emailOnChange(event){
         setEmail(event.target.value);
     }
@@ -11,16 +28,19 @@ function CreateUserPage() {
     const submitForm = (event) => {
         event.preventDefault();
         console.log(email);
+        console.log(firstName);
+        console.log(lastName);
+        console.log(password);
     }
 
   return (
       <form className="w-96 h-96 pt-10 bg-white m-auto flex flex-col">
           <div className='self-center mt-6'>
-            <InputComponent label="First Name" type="text" handleChange={emailOnChange}/>
+            <InputComponent label="First Name" type="text" handleChange={firstNameOnChange}/>
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent label="Last Name" type="text" handleChange={emailOnChange}/>
+            <InputComponent label="Last Name" type="text" handleChange={lastNameOnChange}/>
           </div>
 
           <div className='self-center mt-6'>
@@ -28,12 +48,12 @@ function CreateUserPage() {
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent label="Temporary Password" type="text" handleChange={emailOnChange}/>
+            <InputComponent label="Temporary Password" type="text" handleChange={passwordOnChange}/>
           </div>
 
 
           <div className='self-center mt-6 pb-3'>
-            <input id="checkbox-2" aria-describedby="checkbox-2" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+            <input id="checkbox-2" aria-describedby="checkbox-2" type="checkbox" onChange={isAdminOnChange} className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
             <label for="checkbox-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Make this user admin</label>
           </div>
 
