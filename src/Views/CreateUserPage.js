@@ -2,7 +2,10 @@ import { useState } from "react";
 import InputComponent from "../Components/InputComponent"
 import { postData } from "../Service/TimeBankService";
 import { useSelector } from "react-redux";
+import ApplicationFrame from "../Elements/ApplicationFrame";
+import { useAuth0 } from "@auth0/auth0-react";
 function CreateUserPage() {
+  const { logout } = useAuth0();
   const token = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${token.jwt_token}`;
 
@@ -89,7 +92,14 @@ function CreateUserPage() {
     }
   }
 
+  function startLogOutAction() {
+    let startPagePath = "http://localhost:3000/";
+    logout({ startPagePath });
+  }
+
   return (
+    <>
+    <ApplicationFrame startLogOutAction={startLogOutAction}/>
       <form className="w-96 h-96 pt-10 bg-white m-auto flex flex-col">
           <div className='self-center mt-6'>
             <InputComponent label="First Name" type="text" value={firstName} handleChange={firstNameOnChange}/>
@@ -118,6 +128,7 @@ function CreateUserPage() {
             text-white font-bold py-2 px-12 rounded justify-self-center' onClick={submitForm}>{buttonText}</button>
           </div>
       </form>
+    </>
   );
 }
 export default CreateUserPage;
