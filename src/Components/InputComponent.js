@@ -20,7 +20,7 @@ const FormInputComponent = ({handleChange, label, type, isDisabled, value}) => {
         focus:outline-none focus:border-blue-500
         disabled:select-none disabled:bg-white'
          onChange={handleChange} /> :
-       <input type={type} id={label} placeholder={label} className='
+       <input type={type} value={value} id={label} placeholder={label} className='
       peer h-10
        w-64 border-b-2 border-gray-300
        text-gray-900 placeholder-transparent

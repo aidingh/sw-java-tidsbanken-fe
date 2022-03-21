@@ -3,54 +3,91 @@ import InputComponent from "../Components/InputComponent"
 import { postData } from "../Service/TimeBankService";
 import { useSelector } from "react-redux";
 function CreateUserPage() {
-    const token = useSelector((state) => state.token_reducer.value);
-    const bearer = `Bearer ${token.jwt_token}`;
+  const token = useSelector((state) => state.token_reducer.value);
+  const bearer = `Bearer ${token.jwt_token}`;
 
-    const [buttonText,setButtonText] = useState('Create User');
-    const [email, setEmail] = useState([]);
-    const [firstName, setFirstName] = useState([]);
-    const [lastName, setLastName] = useState([]);
-    const [password, setPassword] = useState([]);
-    const [isAdmin, setIsAdmin] = useState(false);
+  const [buttonText,setButtonText] = useState('Create User');
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
-    function isAdminOnChange(event){
-      setIsAdmin(event.target.checked);
-    }
-    function passwordOnChange(event){
-      setPassword(event.target.value);
-    }
-    function lastNameOnChange(event){
-      setLastName(event.target.value);
-    }
-    function firstNameOnChange(event){
-      setFirstName(event.target.value);
-    }
-    function emailOnChange(event){
-      setEmail(event.target.value);
+  function isAdminOnChange(event){
+    setIsAdmin(event.target.checked);
+  }
+  function passwordOnChange(event){
+    setPassword(event.target.value);
+  }
+  function lastNameOnChange(event){
+    setLastName(event.target.value);
+  }
+  function firstNameOnChange(event){
+    setFirstName(event.target.value);
+  }
+  function emailOnChange(event){
+    setEmail(event.target.value);
+  }
+
+  async function submitForm(event){
+    event.preventDefault();
+    setButtonText('Creating User....');
+    
+    if(!validName(firstName))
+    {
+      alert("First name is not valid")
+      return;
     }
 
-    async function submitForm(event){
-      event.preventDefault();
-      setButtonText('Creating User....')
-
-      postData(`http://localhost:8080/api/v1/createUser`, bearer,
-      {
-        "firstName":firstName,
-        "lastName":lastName,
-        "email":email,
-        "isAdmin":isAdmin
-      },
-      () => {
-        alert("Created user " + email);
-        
-        setButtonText('Create User');
-        setPassword("");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        console.log(firstName);
-      });
+    if(!validName(lastName)){
+      alert("Last name is not valid")
+      return;
     }
+
+    if(!validEmail(email)){
+      alert("email is not valid");
+      return;
+    }
+    
+    postData(`http://localhost:8080/api/v1/createUser`, bearer,
+    {
+      "firstName":firstName,
+      "lastName":lastName,
+      "email":email,
+      "isAdmin":isAdmin
+    },
+    () => {
+      alert("Created user " + email);
+      
+      setButtonText('Create User');
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+    });
+  }
+
+  function validEmail(email){
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if(email.match(mailformat)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  function validName(name){
+    const regName = /^[a-zA-Z]+$/;
+
+    if(name.match(regName)){
+      return true
+    }
+    else{
+      return false;
+    }
+  }
 
   return (
       <form className="w-96 h-96 pt-10 bg-white m-auto flex flex-col">
@@ -59,15 +96,15 @@ function CreateUserPage() {
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent label="Last Name" type="text" handleChange={lastNameOnChange}/>
+            <InputComponent label="Last Name" type="text" value={lastName} handleChange={lastNameOnChange}/>
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent label="Email" type="text" handleChange={emailOnChange}/>
+            <InputComponent label="Email" type="text" value={email} handleChange={emailOnChange}/>
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent label="Temporary Password" type="text" handleChange={passwordOnChange}/>
+            <InputComponent label="Temporary Password" type="text" value={password} handleChange={passwordOnChange}/>
           </div>
 
 
