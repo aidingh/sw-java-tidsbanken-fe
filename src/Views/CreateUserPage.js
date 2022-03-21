@@ -13,15 +13,12 @@ function CreateUserPage() {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   function isAdminOnChange(event){
     setIsAdmin(event.target.checked);
   }
-  function passwordOnChange(event){
-    setPassword(event.target.value);
-  }
+
   function lastNameOnChange(event){
     setLastName(event.target.value);
   }
@@ -60,10 +57,9 @@ function CreateUserPage() {
       "isAdmin":isAdmin
     },
     () => {
-      alert("Created user " + email);
-      
+      alert("Created user " + email + ".\nTemporary password: hej/23vad&och% \nUser should change this password on their profile page immediately");
+
       setButtonText('Create User');
-      setPassword("");
       setFirstName("");
       setLastName("");
       setEmail("");
@@ -111,10 +107,6 @@ function CreateUserPage() {
 
           <div className='self-center mt-6'>
             <InputComponent label="Email" type="text" value={email} handleChange={emailOnChange}/>
-          </div>
-
-          <div className='self-center mt-6'>
-            <InputComponent label="Temporary Password" type="text" value={password} handleChange={passwordOnChange}/>
           </div>
 
 
