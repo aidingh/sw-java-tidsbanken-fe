@@ -14,8 +14,10 @@ export const useFetch = async (url, bearer) => {
         'Authorization': bearer
       }
     });
+
     const data = await response.json();
-    return data;
+    return data
+    
   } catch (error) {
     console.error(error);
   }

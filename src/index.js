@@ -33,6 +33,7 @@ const store = configureStore({
 });
 
 let persistor = persistStore(store);
+persistor.purge();
 
 ReactDOM.render(
   <React.StrictMode>

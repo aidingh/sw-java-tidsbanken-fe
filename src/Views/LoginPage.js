@@ -33,9 +33,6 @@ function LoginPage() {
                   <form className="mt-8 space-y-6" onClick={startLoginAction}>
                     <input type="hidden" name="remember" value="true" />
                     <div className="rounded-md shadow-sm -space-y-px"></div>
-
-                    <div className="flex items-center justify-between"></div>
-
                     <div>
                       <button
                         type="submit"
