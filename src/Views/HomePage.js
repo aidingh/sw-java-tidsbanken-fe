@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,14 +12,35 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
+  /**
+   * Dispatch object from react-redux.
+   * Used to dispatch values into the reducer.
+   */
   const dispatch = useDispatch();
 
+  /**
+   * Auth0s hook functions and variables.
+   */
   const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0();
+
+  /**
+   * Selector to get any globally scoped variables from projects redux store.
+   */
   const token = useSelector((state) => state.token_reducer.value);
 
+    /**
+   * Update a user role
+   */
   const [role, setRole] = useState([]);
 
+  /**
+   * Function will run on every page render. 
+   * It will check if the redux middle-ware has set the redux state to local storage.
+   * Function will only dispatch values to the redux reducer if the values are not set. 
+   * 
+   * @param {void}
+   */
   useEffect(() => {
     if(localStorage.getItem('persist:root') == null){
       if (isAuthenticated && !isLoading) {
@@ -50,6 +72,12 @@ const HomePage = () => {
     dispatch(setToken({ jwt_token: await getToken(), role: role, user: user }));
   }
 
+  /**
+   * Function will attempt to fetch the user role from the database.
+   * 
+   * @param {string} clientId The clients unique ID.
+   * @returns {string} Returns the users role.
+   */
   async function getUserRole(clientId) {
     let temp = await getToken();
     const bearer = `Bearer ${temp}`;
@@ -60,6 +88,13 @@ const HomePage = () => {
     return data[0].name;
   }
 
+  /**
+   * Function will attempt to fetch the users jwt-token.
+   * Function will use Auth0s hook function to fetch the token.
+   * 
+   * @param {void} 
+   * @returns {string} Returns the users JWT-token.
+   */
   async function getToken() {
     const token = await getAccessTokenSilently({
       audience: "https://time.bank.com",
@@ -67,16 +102,36 @@ const HomePage = () => {
     return token;
   }
 
+  /**
+   * Function will sign out the current user and redirect back to LoginPage.
+   * Function will use Auth0s hook function (logout) to achieve this. 
+   * 
+   * @param {void} 
+   * @returns {void} 
+   */
   function startLogOutAction() {
     let startPagePath = "http://localhost:3000/";
     logout({ startPagePath });
-    //localStorage.clear();
   }
 
+  /**
+   * Will display a loading spinner for the client when any fetch is made by Auth0.
+   * 
+   * @param {boolean} isLoading  Hook variable from auth0. Is true while fetches are made by Auth0.
+   * @returns {HTMLCollection} LoadingSpinner
+   */
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
+  
+  /**
+   * When fetches are completed the actual design of the page is rendered.
+   * Page will only be visible if a user is authenticated. 
+   * If not authenticated the user will be redirected to LoginPage.
+   * 
+   * @returns {HTMLCollection} 
+   */
   return (
     <>
       {!isAuthenticated && <Navigate to="/" />}
@@ -98,3 +153,4 @@ const HomePage = () => {
   );
 };
 export default HomePage;
+
