@@ -21,14 +21,13 @@ const CalendarView = () => {
   const userId = split[1];
   const admin = state.role;
 
-  /**
+/**
 * Open and closes the modal.
 * @return {Boolean}
 */
   const handleOpen = () => {
     setOpen(!open);
   };
-
 
   useEffect(async () => {
     const events = [];
@@ -72,11 +71,9 @@ const CalendarView = () => {
       } catch (error) {
         console.error(error);
       }
-
     }
     setEventData(events);
   }, []);
-
 
   function setSingleVacationRequest(color, vacationRequest, events) {
     events.push({

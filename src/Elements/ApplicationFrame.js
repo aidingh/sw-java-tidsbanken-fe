@@ -32,7 +32,6 @@ const ApplicationFrame = ({ startLogOutAction }) => {
                   Profile
                 </NavLink>
               </li>
-
               {state.role == "Admin" && (
                 <li>
                   <NavLink

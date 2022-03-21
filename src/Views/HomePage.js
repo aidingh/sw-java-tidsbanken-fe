@@ -29,7 +29,7 @@ const HomePage = () => {
    */
   const token = useSelector((state) => state.token_reducer.value);
 
-    /**
+  /**
    * Update a user role
    */
   const [role, setRole] = useState([]);
@@ -61,7 +61,7 @@ const HomePage = () => {
 
   /**
    * Function will first get a role from database then set the role to update its state in the UI.
-   * Function will set values to a redux reducer. 
+   * Function will dispatch values to a redux reducer. 
    * Jwt, role and user object is set to the projects redux reducer. 
    * 
    * @param {string} clientId The clients unique ID.
@@ -141,7 +141,7 @@ const HomePage = () => {
           <div className="px-8 ...">
             <div className="text-right">
               <h2>{"User:  " + user.nickname}</h2>
-              <h2>{"Role:  " + role}</h2>
+              <h2>{"Role:  " + token.role}</h2>
             </div>
           </div>
           <div className="p-8 ...">
