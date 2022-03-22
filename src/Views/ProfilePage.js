@@ -5,7 +5,7 @@ import LoadingSpinner from "../Elements/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import InputComponent from "../Components/InputComponent"
-import { patchData } from "../Service/TimeBankService";
+import { patchData,useFetch } from "../Service/TimeBankService";
 
 function ProfilePage() {
   
@@ -16,14 +16,26 @@ function ProfilePage() {
 
   const token = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${token.jwt_token}`;
+
   const state = useSelector((state) => state.token_reducer.value);
   const { isAuthenticated, isLoading, user, logout } = useAuth0();
+
 
   useEffect(() => {
     setNickname(state.user.nickname);
     setEmail(state.user.email);
   }, []);
   
+  async function changePass() {
+
+    const bearer = `Bearer ${state.jwt_token}`;
+    console.log(state.jwt_token);
+
+    let data = await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer)
+    console.log(data);
+  
+  }
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -95,6 +107,7 @@ function ProfilePage() {
           </div>
           
         </div>
+
       </>
     )}
     </>

@@ -10,11 +10,11 @@ const ApplicationFrame = ({ startLogOutAction }) => {
       <nav className="px-2 bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div className="px-6 ...">
           <div className="flex flex-wrap justify-between items-center mx-auto">
-            <a href="#" className="flex items-center">
+            <NavLink to="/home" className="flex items-center">
               <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
                 Time Bank
               </span>
-            </a>
+            </NavLink>
             <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
               <li>
                 <NavLink
@@ -32,7 +32,6 @@ const ApplicationFrame = ({ startLogOutAction }) => {
                   Profile
                 </NavLink>
               </li>
-
               {state.role == "Admin" && (
                 <li>
                   <NavLink

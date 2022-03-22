@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -29,29 +28,26 @@ const HomePage = () => {
    */
   const token = useSelector((state) => state.token_reducer.value);
 
-    /**
+  /**
    * Update a user role
    */
   const [role, setRole] = useState([]);
 
   /**
-   * Function will run on every page render. 
-   * It will check if the redux middle-ware has set the redux state to local storage.
-   * Function will only dispatch values to the redux reducer if the values are not set. 
-   * 
+   * Function will run on every page render.
+   * Function will only dispatch values to the redux reducer if the values are not set.
+   *
    * @param {void}
    */
   useEffect(() => {
-    if(localStorage.getItem('persist:root') == null){
-      if (isAuthenticated && !isLoading) {
-        startReducer(user);
-      }
+    if (isAuthenticated && !isLoading) {
+      startReducer(user);
     }
   }, [isAuthenticated]);
 
   /**
    * Function will assure that the right client id is passed into the next function.
-   * 
+   *
    * @param {Object} user User object provided by Auth0.
    */
   async function startReducer(user) {
@@ -61,20 +57,19 @@ const HomePage = () => {
 
   /**
    * Function will first get a role from database then set the role to update its state in the UI.
-   * Function will set values to a redux reducer. 
-   * Jwt, role and user object is set to the projects redux reducer. 
-   * 
+   * Function will dispatch values to a redux reducer.
+   * Jwt, role and user object is set to the projects redux reducer.
+   *
    * @param {string} clientId The clients unique ID.
    */
   async function setStoreValues(clientId) {
-    let role = await getUserRole(clientId);
-    setRole(role);
-    dispatch(setToken({ jwt_token: await getToken(), role: role, user: user }));
+    setRole(await getUserRole(clientId));
+    dispatch(setToken({ jwt_token: await getToken(), role: await getUserRole(clientId), user: user }));
   }
 
   /**
    * Function will attempt to fetch the user role from the database.
-   * 
+   *
    * @param {string} clientId The clients unique ID.
    * @returns {string} Returns the users role.
    */
@@ -91,8 +86,8 @@ const HomePage = () => {
   /**
    * Function will attempt to fetch the users jwt-token.
    * Function will use Auth0s hook function to fetch the token.
-   * 
-   * @param {void} 
+   *
+   * @param {void}
    * @returns {string} Returns the users JWT-token.
    */
   async function getToken() {
@@ -104,19 +99,20 @@ const HomePage = () => {
 
   /**
    * Function will sign out the current user and redirect back to LoginPage.
-   * Function will use Auth0s hook function (logout) to achieve this. 
-   * 
-   * @param {void} 
-   * @returns {void} 
+   * Function will use Auth0s hook function (logout) to achieve this.
+   *
+   * @param {void}
+   * @returns {void}
    */
   function startLogOutAction() {
     let startPagePath = "http://localhost:3000/";
     logout({ startPagePath });
+    localStorage.clear();
   }
 
   /**
    * Will display a loading spinner for the client when any fetch is made by Auth0.
-   * 
+   *
    * @param {boolean} isLoading  Hook variable from auth0. Is true while fetches are made by Auth0.
    * @returns {HTMLCollection} LoadingSpinner
    */
@@ -124,13 +120,12 @@ const HomePage = () => {
     return <LoadingSpinner />;
   }
 
-  
   /**
    * When fetches are completed the actual design of the page is rendered.
-   * Page will only be visible if a user is authenticated. 
+   * Page will only be visible if a user is authenticated.
    * If not authenticated the user will be redirected to LoginPage.
-   * 
-   * @returns {HTMLCollection} 
+   *
+   * @returns {HTMLCollection}
    */
   return (
     <>
@@ -141,7 +136,7 @@ const HomePage = () => {
           <div className="px-8 ...">
             <div className="text-right">
               <h2>{"User:  " + user.nickname}</h2>
-              <h2>{"Role:  " + role}</h2>
+              <h2>{"Role:  " + token.role}</h2>
             </div>
           </div>
           <div className="p-8 ...">
@@ -153,4 +148,3 @@ const HomePage = () => {
   );
 };
 export default HomePage;
-
