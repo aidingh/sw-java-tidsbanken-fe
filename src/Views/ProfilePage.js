@@ -9,7 +9,7 @@ import { patchData,useFetch } from "../Service/TimeBankService";
 
 function ProfilePage() {
   
-  const [buttonText,setButtonText] = useState('Update');
+  const [buttonText,setButtonText] = useState('Enable Edit Mode');
   const [isDisabled, setIsDisabled] = useState(true);
   const [email,setEmail] = useState('');
   const [nickname,setNickname] = useState('');
@@ -46,13 +46,12 @@ function ProfilePage() {
   function switchUpdateAndConfirm(){
     if(isDisabled)
     {
-      setButtonText('Confirm');
-      setNickname('');
-      setEmail('');
+      setButtonText('Confirm and update information');
       setIsDisabled(false);
     }
     else
     {
+      setButtonText("Updating....")
       const userId = user.sub.split('|');
       console.log(userId[1])
       console.log(nickname)
@@ -63,8 +62,8 @@ function ProfilePage() {
         "email":email
       }, () => {
         alert("succesfully updated user")
+        setButtonText('Enable Edit Mode');
       })
-      setButtonText('Update');
       setIsDisabled(true);
     }
   }
