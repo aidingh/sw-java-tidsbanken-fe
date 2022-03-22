@@ -7,7 +7,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 
 
-const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate }) => {
+const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate, handleSubmit }) => {
     const { user } = useAuth0();
     return (
         <form className="w-96 h-96 bg-white m-auto flex flex-col">
@@ -43,11 +43,11 @@ const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate })
             </div>
             <div className='flex justify-around content-end grow items-center'>
                 <button className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded justify-self-center'
-                >Accept</button>
+                    onClick={handleSubmit} value="accept">Accept</button>
                 <button className='bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-6 rounded justify-self-center'
-                >Deny</button>
+                    onClick={handleSubmit} value="deny">Deny</button>
                 <button className='bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-6 rounded justify-self-center'
-                >Delete</button>
+                    onClick={handleSubmit} value="delete">Delete</button>
             </div>
         </form>
     );
