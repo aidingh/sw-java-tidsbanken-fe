@@ -5,7 +5,7 @@
  * @param {String} bearer The bearer token
  * @return {Object} The fetched data
  */
-export const useFetch = async (url, bearer) => {
+export const useFetch = async (url, bearer, successCallback) => {
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -16,6 +16,8 @@ export const useFetch = async (url, bearer) => {
     });
 
     const data = await response.json();
+
+    successCallback?.();
     return data
     
   } catch (error) {

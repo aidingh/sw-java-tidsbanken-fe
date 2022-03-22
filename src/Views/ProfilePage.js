@@ -33,7 +33,9 @@ function ProfilePage() {
     const bearer = `Bearer ${state.jwt_token}`;
     console.log(state.jwt_token);
 
-    let data = await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer)
+    let data = await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer,() => {
+      alert("You have received a link to change password on your email.");
+    })
     console.log(data);
   
   }
@@ -106,7 +108,10 @@ function ProfilePage() {
           <div className='grow flex justify-center items-center'>
             <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded justify-self-center' onClick={switchUpdateAndConfirm}>{buttonText}</button>
           </div>
-          
+
+          <div className='grow flex justify-center items-center'>
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded justify-self-center' onClick={changePass}>Change password</button>
+          </div>
         </div>
 
       </>
