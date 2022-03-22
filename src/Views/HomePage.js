@@ -9,8 +9,6 @@ import { useEffect } from "react";
 import { useFetch } from "../Service/TimeBankService";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { purgeStoredState } from 'redux-persist'
-import persistStore from "redux-persist/es/persistStore";
 
 const HomePage = () => {
   /**
@@ -37,7 +35,6 @@ const HomePage = () => {
 
   /**
    * Function will run on every page render.
-   * It will check if the redux middle-ware has set the redux state to local storage.
    * Function will only dispatch values to the redux reducer if the values are not set.
    *
    * @param {void}
@@ -66,9 +63,8 @@ const HomePage = () => {
    * @param {string} clientId The clients unique ID.
    */
   async function setStoreValues(clientId) {
-    let role = await getUserRole(clientId);
-    setRole(role);
-    dispatch(setToken({ jwt_token: await getToken(), role: role, user: user }));
+    setRole(await getUserRole(clientId));
+    dispatch(setToken({ jwt_token: await getToken(), role: await getUserRole(clientId), user: user }));
   }
 
   /**
