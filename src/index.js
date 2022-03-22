@@ -59,11 +59,6 @@ const store = configureStore({
  */
 let persistor = persistStore(store);
 
-/**
- * To fully clear local storage from redux-persist a purge function must be called.
- */
-persistor.purge();
-
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider

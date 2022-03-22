@@ -97,6 +97,7 @@ const CreateUserPage = () => {
   function startLogOutAction() {
     let startPagePath = "http://localhost:3000/";
     logout({ startPagePath });
+    localStorage.clear();
   }
 
   return (
