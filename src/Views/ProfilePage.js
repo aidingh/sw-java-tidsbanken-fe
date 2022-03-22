@@ -10,7 +10,7 @@ import userEvent from "@testing-library/user-event";
 
 function ProfilePage() {
   
-  const [buttonText,setButtonText] = useState('Enable Edit');
+  const [buttonText,setButtonText] = useState('Enable Edit Mode');
   const [isDisabled, setIsDisabled] = useState(true);
   const [email,setEmail] = useState('');
   const [nickname,setNickname] = useState('');
@@ -61,7 +61,7 @@ function ProfilePage() {
         "email":email
       }, () => {
         alert("succesfully updated user")
-        setButtonText('Enable Edit');
+        setButtonText('Enable Edit Mode');
       })
 
       setIsDisabled(true);
