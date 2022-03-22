@@ -21,7 +21,8 @@ const HomePage = () => {
    * Auth0s hook functions and variables.
    */
   const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0();
+  useAuth0();
+
 
   /**
    * Selector to get any globally scoped variables from projects redux store.
@@ -135,7 +136,7 @@ const HomePage = () => {
           <ApplicationFrame startLogOutAction={startLogOutAction} />
           <div className="px-8 ...">
             <div className="text-right">
-              <h2>{"User:  " + user.nickname}</h2>
+              <h2>{"User:  " + token.user.nickname}</h2>
               <h2>{"Role:  " + token.role}</h2>
             </div>
           </div>

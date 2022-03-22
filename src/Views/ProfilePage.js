@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import InputComponent from "../Components/InputComponent"
 import { patchData,useFetch } from "../Service/TimeBankService";
+import userEvent from "@testing-library/user-event";
 
 function ProfilePage() {
   
@@ -60,8 +61,9 @@ function ProfilePage() {
         "nickname":nickname,
         "email":email
       }, () => {
-        alert("created user")
+        alert("succesfully updated user")
       })
+
       setButtonText('Update');
       setIsDisabled(true);
     }
