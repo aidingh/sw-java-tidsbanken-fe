@@ -54,7 +54,7 @@ const VacationRequestFormPage = ({ handleOpen }) => {
             </div>
             <div className='self-center mt-6'>
                 <FormInputComponent handleChange={handleOnChange}
-                    label='Vacation request title' type='text' />
+                    label='Vacation request title' type='text' value={title} />
             </div>
             <div className='self-center my-3'>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
