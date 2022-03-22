@@ -1,12 +1,11 @@
 import {React, useState,useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import InputComponent from "../Components/InputComponent"
 import { patchData,useFetch } from "../Service/TimeBankService";
-import userEvent from "@testing-library/user-event";
 
 function ProfilePage() {
   
@@ -19,7 +18,9 @@ function ProfilePage() {
   const bearer = `Bearer ${token.jwt_token}`;
 
   const state = useSelector((state) => state.token_reducer.value);
-  const { isAuthenticated, isLoading, user, logout } = useAuth0();
+  const { isAuthenticated, isLoading, user, logout, getAccessTokenSilently } = useAuth0();
+
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -63,12 +64,11 @@ function ProfilePage() {
       }, () => {
         alert("succesfully updated user")
       })
-
       setButtonText('Update');
       setIsDisabled(true);
     }
-  } 
-
+  }
+  
   function onNicknameChange(event){
     setNickname(event.target.value);
   }

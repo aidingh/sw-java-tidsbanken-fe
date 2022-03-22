@@ -27,12 +27,15 @@ const HomePage = () => {
   /**
    * Selector to get any globally scoped variables from projects redux store.
    */
-  const token = useSelector((state) => state.token_reducer.value);
+  const state = useSelector((state) => state.token_reducer.value);
 
   /**
    * Update a user role
    */
   const [role, setRole] = useState([]);
+
+
+  const [userTemp, setUser] = useState({});
 
   /**
    * Function will run on every page render.
@@ -41,10 +44,11 @@ const HomePage = () => {
    * @param {void}
    */
   useEffect(() => {
+console.log(user);
     if (isAuthenticated && !isLoading) {
       startReducer(user);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   /**
    * Function will assure that the right client id is passed into the next function.
@@ -94,6 +98,7 @@ const HomePage = () => {
   async function getToken() {
     const token = await getAccessTokenSilently({
       audience: "https://time.bank.com",
+      ignoreCache: true
     });
     return token;
   }
@@ -136,8 +141,8 @@ const HomePage = () => {
           <ApplicationFrame startLogOutAction={startLogOutAction} />
           <div className="px-8 ...">
             <div className="text-right">
-              <h2>{"User:  " + token.user.nickname}</h2>
-              <h2>{"Role:  " + token.role}</h2>
+              <h2>{"User:  " + user.nickname}</h2>
+              <h2>{"Role:  " + state.role}</h2>
             </div>
           </div>
           <div className="p-8 ...">
