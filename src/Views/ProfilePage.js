@@ -1,22 +1,67 @@
-import React from "react";
+import {React, useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoadingSpinner from "../Elements/LoadingSpinner";
 import { Navigate } from "react-router-dom";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import InputComponent from "../Components/InputComponent"
-function ProfilePage() {
+import { patchData } from "../Service/TimeBankService";
 
-  const { logout } = useAuth0();
+function ProfilePage() {
+  
+  const [buttonText,setButtonText] = useState('Update');
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [email,setEmail] = useState('');
+  const [nickname,setNickname] = useState('');
+
   const token = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${token.jwt_token}`;
   const state = useSelector((state) => state.token_reducer.value);
-  const { isAuthenticated, isLoading, user } = useAuth0();
+  const { isAuthenticated, isLoading, user, logout } = useAuth0();
 
+  useEffect(() => {
+    setNickname(state.user.nickname);
+    setEmail(state.user.email);
+  }, []);
+  
   if (isLoading) {
     return <LoadingSpinner />;
   }
+  
+  
+  function switchUpdateAndConfirm(){
+    if(isDisabled)
+    {
+      setButtonText('Confirm');
+      setNickname('');
+      setEmail('');
+      setIsDisabled(false);
+    }
+    else
+    {
+      const userId = user.sub.split('|');
+      console.log(userId[1])
+      console.log(nickname)
+      console.log(user);
+      patchData("http://localhost:8080/api/v1/updateUserAuth0",bearer,{
+        "id":userId[1],
+        "nickname":nickname,
+        "email":email
+      }, () => {
+        alert("created user")
+      })
+      setButtonText('Update');
+      setIsDisabled(true);
+    }
+  } 
 
+  function onNicknameChange(event){
+    setNickname(event.target.value);
+  }
+
+  function onEmailChange(event){
+    setEmail(event.target.value);
+  }
 
   function startLogOutAction() {
     let startPagePath = "http://localhost:3000/";
@@ -38,16 +83,17 @@ function ProfilePage() {
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent isDisabled={true} label="First Name" type="text" value={"Love"} />
+            <InputComponent isDisabled={isDisabled} label="Nickname" handleChange={onNicknameChange} type="text" value={nickname} />
           </div>
 
           <div className='self-center mt-6'>
-            <InputComponent isDisabled={true} label="Last Name" type="text" value={"Beling"} />
+            <InputComponent isDisabled={isDisabled} label="Email" handleChange={onEmailChange} type="text" value={email} />
           </div>
 
-          <div className='self-center mt-6'>
-            <InputComponent isDisabled={true} label="Email" type="text" value={"Beling"} handleChange={() => console.log("hej")}/>
+          <div className='grow flex justify-center items-center'>
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded justify-self-center' onClick={switchUpdateAndConfirm}>{buttonText}</button>
           </div>
+          
         </div>
       </>
     )}
