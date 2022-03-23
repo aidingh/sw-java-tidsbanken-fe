@@ -88,7 +88,6 @@ const HomePage = () => {
    */
   async function getUserRole(clientId) {
     const bearer = `Bearer ${await getToken()}`;
-    console.log(bearer);
     let data = await useFetch(
       `http://localhost:8080/api/v1/user/role/${clientId}`,
       bearer

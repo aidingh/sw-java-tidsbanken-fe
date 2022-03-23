@@ -94,7 +94,6 @@ const CalendarView = () => {
   useEffect(async () => {
     if (state.jwt_token != "") {
       setVacationRequests();
-      console.log(eventData);
     }
   }, [state]);
 
