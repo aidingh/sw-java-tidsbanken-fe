@@ -10,9 +10,13 @@ import { useFetch } from "../Service/TimeBankService";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
+/**
+ * Page will display multiple application components for the client.
+ * HomePage will render the application frame and the calendar page.
+ * HomePage is also responsible for ensuring that the application redux values are stored and persisted.
+ * @returns {HomePage}
+ */
 const HomePage = () => {
-
-  const [loading, setLoading] = useState(false);
   /**
    * Dispatch object from react-redux.
    * Used to dispatch values into the reducer.
@@ -30,6 +34,10 @@ const HomePage = () => {
    */
   const state = useSelector((state) => state.token_reducer.value);
 
+  /**
+   * Will set a loading status. If true a loading spinner will be displayed.
+   */
+  const [loading, setLoading] = useState(false);
 
   /**
    * Function will run on every page render.
@@ -38,12 +46,11 @@ const HomePage = () => {
    * @param {void}
    */
   useEffect(() => {
-
     if (isAuthenticated && state.jwt_token == "") {
       setLoading(true);
       startReducer(user);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isLoading]);
 
   /**
    * Function will assure that the right client id is passed into the next function.
@@ -63,7 +70,13 @@ const HomePage = () => {
    * @param {string} clientId The clients unique ID.
    */
   async function setStoreValues(clientId) {
-    dispatch(setToken({ jwt_token: await getToken(), role: await getUserRole(clientId), user: user, }));
+    dispatch(
+      setToken({
+        jwt_token: await getToken(),
+        role: await getUserRole(clientId),
+        user: user,
+      })
+    );
     setLoading(false);
   }
 
@@ -74,9 +87,12 @@ const HomePage = () => {
    * @returns {string} Returns the users role.
    */
   async function getUserRole(clientId) {
-    let temp = await getToken();
-    const bearer = `Bearer ${temp}`;
-    let data = await useFetch(`http://localhost:8080/api/v1/user/role/${clientId}`, bearer);
+    const bearer = `Bearer ${await getToken()}`;
+    console.log(bearer);
+    let data = await useFetch(
+      `http://localhost:8080/api/v1/user/role/${clientId}`,
+      bearer
+    );
     return data[0].name;
   }
 
@@ -108,8 +124,6 @@ const HomePage = () => {
     logout();
   }
 
-
-
   /**
    * Will display a loading spinner for the client when any fetch is made by Auth0.
    *
@@ -135,8 +149,8 @@ const HomePage = () => {
           <ApplicationFrame startLogOutAction={startLogOutAction} />
           <div className="px-8 ...">
             <div className="text-right">
-              <h2>{"User:  " + user.nickname}</h2>
-              <h2>{"Role:  " + state.role}</h2>
+              <h2>{user.nickname}</h2>
+              <h2>{state.role}</h2>
             </div>
           </div>
           <div className="p-8 ...">

@@ -2,13 +2,17 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../Assets/time-bank-logo.png";
-import { useEffect } from "react";
 
+/**
+ * LoginPage will attempt to sign in a user to the application.
+ * If the user cant sign in, then the user will be redirected to LoginPage.
+ * @returns {LoginPage} 
+ */
 function LoginPage() {
   /**
    * Auth0s hook functions and variables.
    */
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { isAuthenticated, loginWithPopup } = useAuth0();
 
   /**
    * Function will run when the client attempts to sign in into the application. 
@@ -18,7 +22,7 @@ function LoginPage() {
    */
   const startLoginAction = (event) => {
     event.preventDefault();
-    loginWithRedirect();
+    loginWithPopup();
   };
 
   return (

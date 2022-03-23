@@ -114,8 +114,7 @@ const CreateUserPage = () => {
   }
 
   function startLogOutAction() {
-    let startPagePath = "http://localhost:3000/";
-    logout({ startPagePath });
+      logout();
   }
 
   return (

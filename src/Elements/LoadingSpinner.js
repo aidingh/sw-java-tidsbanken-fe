@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * LoadingSpinner is a component that can be used in several views.
+ * It can be called as something is loading.
+ * @returns {LoadingSpinner} 
+ */
 const LoadingSpinner = () => (
   <div className="flex h-screen justify-center items-center">
     <div className="text-center">

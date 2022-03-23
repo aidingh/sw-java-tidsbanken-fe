@@ -28,9 +28,9 @@ function ProfilePage() {
   const { isAuthenticated, isLoading, user, logout } = useAuth0();
 
   useEffect(() => {
-    setNickname(state.user.nickname);
-    setEmail(state.user.email);
-  }, []);
+    setNickname(user.nickname);
+    setEmail(user.email);
+  }, [token]);
   
   /**
    * Performs a request which triggers an email being sent to the current user with a link to change the password.
@@ -62,14 +62,18 @@ function ProfilePage() {
       // Edits has been confirmed, doing a patch request with updated user infoormation 
       setButtonText("Updating....")
       const userId = user.sub.split('|');
-      patchData("http://localhost:8080/api/v1/updateUserAuth0",bearer,{
+
+     const patchedUserData =  patchData("http://localhost:8080/api/v1/updateUser",bearer,{
         "id":userId[1],
         "nickname":nickname,
         "email":email
-      }, () => {
-        alert("succesfully updated user")
+      });
+
+      if(patchedUserData){
+        alert("succesfully updated user");
         setButtonText('Enable Edit Mode');
-      })
+        logout();
+      }
       setIsDisabled(true);
     }
   }
@@ -83,8 +87,7 @@ function ProfilePage() {
   }
 
   function startLogOutAction() {
-    let startPagePath = "http://localhost:3000/";
-    logout({ startPagePath });
+    logout();
   }
 
   return (
