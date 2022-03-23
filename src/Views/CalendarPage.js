@@ -32,9 +32,9 @@ const CalendarView = () => {
   const role = state.role;
 
   /**
-* Open and closes the modal.
-* @return {Boolean}
-*/
+   * Open and closes the modal.
+   * @return {Boolean}
+   */
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -92,52 +92,58 @@ const CalendarView = () => {
   };
 
   useEffect(async () => {
+    if (state.jwt_token != "") {
+      setVacationRequests();
+    }
+  }, [state]);
+
+  async function setVacationRequests() {
     const events = [];
     if (role == "Admin") {
-      let vacationsJson = await useFetch("http://localhost:8080/api/v1/vacation/all", bearer);
+      let vacationsJson = await useFetch(
+        "http://localhost:8080/api/v1/vacation/all",
+        bearer
+      );
       vacationsJson.forEach((vacation) => {
-        if ("APPROVED".localeCompare(vacation.status) == 0) {
-          setSingleVacationRequest(approvedColor, vacation, events);
-        }
-
-        if ("DENIED".localeCompare(vacation.status) == 0) {
-          setSingleVacationRequest(deniedColor, vacation, events);
-        }
-
-        if ("PENDING".localeCompare(vacation.status) == 0) {
-          setSingleVacationRequest(pendingColor, vacation, events);
-        }
+        checkStatus(vacation, events);
       });
-    }
-    else {
-      const approvedVacationsJson = await useFetch("http://localhost:8080/api/v1/vacation/approved", bearer);
+    } else {
+      const approvedVacationsJson = await useFetch(
+        "http://localhost:8080/api/v1/vacation/approved",
+        bearer
+      );
       approvedVacationsJson.forEach((vacationRequest) => {
         setSingleVacationRequest(approvedColor, vacationRequest, events);
       });
 
-      const userVacationRequestsJson = await useFetch(`http://localhost:8080/api/v1/vacation/${userId}`, bearer);
+      const userVacationRequestsJson = await useFetch(
+        `http://localhost:8080/api/v1/vacation/${userId}`,
+        bearer
+      );
       try {
         userVacationRequestsJson.forEach((vacation) => {
-          if ("APPROVED".localeCompare(vacation.status) == 0) {
-            setSingleVacationRequest(approvedColor, vacation, events);
-          }
-
-          if ("DENIED".localeCompare(vacation.status) == 0) {
-            setSingleVacationRequest(deniedColor, vacation, events);
-          }
-
-          if ("PENDING".localeCompare(vacation.status) == 0) {
-            setSingleVacationRequest(pendingColor, vacation, events);
-          }
+          checkStatus(vacation, events);
         });
       } catch (error) {
         console.error(error);
       }
-
     }
     setEventData(events);
-  }, []);
+  }
 
+  function checkStatus(vacation, events) {
+    if ("APPROVED".localeCompare(vacation.status) == 0) {
+      setSingleVacationRequest(approvedColor, vacation, events);
+    }
+
+    if ("DENIED".localeCompare(vacation.status) == 0) {
+      setSingleVacationRequest(deniedColor, vacation, events);
+    }
+
+    if ("PENDING".localeCompare(vacation.status) == 0) {
+      setSingleVacationRequest(pendingColor, vacation, events);
+    }
+  }
 
   function setSingleVacationRequest(color, vacationRequest, events) {
     events.push({
@@ -183,11 +189,11 @@ const CalendarView = () => {
         events={eventData}
         customButtons={{
           vacationRequest: {
-            text: 'Vacation Request',
+            text: "Vacation Request",
             click: () => {
               handleOpen();
-            }
-          }
+            },
+          },
         }}
         headerToolbar={{ center: 'vacationRequest' }}
       >

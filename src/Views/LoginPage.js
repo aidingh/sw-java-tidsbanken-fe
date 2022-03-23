@@ -2,10 +2,20 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../Assets/time-bank-logo.png";
+import { useEffect } from "react";
 
 function LoginPage() {
+  /**
+   * Auth0s hook functions and variables.
+   */
   const { loginWithRedirect, isAuthenticated } = useAuth0();
 
+  /**
+   * Function will run when the client attempts to sign in into the application. 
+   * Function will redirect the user to Auth0 sign in page to authenticate the user.
+   * 
+   * @param {Object} event
+   */
   const startLoginAction = (event) => {
     event.preventDefault();
     loginWithRedirect();
@@ -33,9 +43,6 @@ function LoginPage() {
                   <form className="mt-8 space-y-6" onClick={startLoginAction}>
                     <input type="hidden" name="remember" value="true" />
                     <div className="rounded-md shadow-sm -space-y-px"></div>
-
-                    <div className="flex items-center justify-between"></div>
-
                     <div>
                       <button
                         type="submit"
