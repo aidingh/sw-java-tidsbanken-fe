@@ -18,10 +18,7 @@ function ProfilePage() {
   const bearer = `Bearer ${token.jwt_token}`;
 
   const state = useSelector((state) => state.token_reducer.value);
-  const { isAuthenticated, isLoading, user, logout, getAccessTokenSilently } = useAuth0();
-
-  const dispatch = useDispatch();
-
+  const { isAuthenticated, isLoading, user, logout } = useAuth0();
 
   useEffect(() => {
     setNickname(state.user.nickname);
@@ -29,21 +26,15 @@ function ProfilePage() {
   }, []);
   
   async function changePass() {
-
     const bearer = `Bearer ${state.jwt_token}`;
-    console.log(state.jwt_token);
-
-    let data = await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer,() => {
+    await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer,() => {
       alert("You have received a link to change password on your email.");
     })
-    console.log(data);
-  
   }
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  
   
   function switchUpdateAndConfirm(){
     if(isDisabled)
@@ -55,9 +46,6 @@ function ProfilePage() {
     {
       setButtonText("Updating....")
       const userId = user.sub.split('|');
-      console.log(userId[1])
-      console.log(nickname)
-      console.log(user);
       patchData("http://localhost:8080/api/v1/updateUserAuth0",bearer,{
         "id":userId[1],
         "nickname":nickname,
