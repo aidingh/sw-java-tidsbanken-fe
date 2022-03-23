@@ -11,6 +11,8 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
+
+  const [loading, setLoading] = useState(false);
   /**
    * Dispatch object from react-redux.
    * Used to dispatch values into the reducer.
@@ -21,8 +23,7 @@ const HomePage = () => {
    * Auth0s hook functions and variables.
    */
   const { logout, isAuthenticated, getAccessTokenSilently, isLoading, user } =
-  useAuth0();
-
+    useAuth0();
 
   /**
    * Selector to get any globally scoped variables from projects redux store.
@@ -34,9 +35,6 @@ const HomePage = () => {
    */
   const [role, setRole] = useState([]);
 
-
-  const [userTemp, setUser] = useState({});
-
   /**
    * Function will run on every page render.
    * Function will only dispatch values to the redux reducer if the values are not set.
@@ -44,11 +42,12 @@ const HomePage = () => {
    * @param {void}
    */
   useEffect(() => {
-console.log(user);
-    if (isAuthenticated && !isLoading) {
+    
+    if (isAuthenticated && state.jwt_token == "") {
+      setLoading(true);
       startReducer(user);
     }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [isAuthenticated]);
 
   /**
    * Function will assure that the right client id is passed into the next function.
@@ -68,8 +67,10 @@ console.log(user);
    * @param {string} clientId The clients unique ID.
    */
   async function setStoreValues(clientId) {
+    
     setRole(await getUserRole(clientId));
-    dispatch(setToken({ jwt_token: await getToken(), role: await getUserRole(clientId), user: user }));
+    dispatch(setToken({jwt_token: await getToken(), role: await getUserRole(clientId), user: user,}));
+    setLoading(false);
   }
 
   /**
@@ -98,7 +99,7 @@ console.log(user);
   async function getToken() {
     const token = await getAccessTokenSilently({
       audience: "https://time.bank.com",
-      ignoreCache: true
+      ignoreCache: true,
     });
     return token;
   }
@@ -111,10 +112,12 @@ console.log(user);
    * @returns {void}
    */
   function startLogOutAction() {
-    let startPagePath = "http://localhost:3000/";
-    logout({ startPagePath });
-    localStorage.clear();
+    //let startPagePath = "http://localhost:3000/";
+    //logout({ startPagePath });
+    logout();
   }
+
+
 
   /**
    * Will display a loading spinner for the client when any fetch is made by Auth0.
@@ -122,7 +125,7 @@ console.log(user);
    * @param {boolean} isLoading  Hook variable from auth0. Is true while fetches are made by Auth0.
    * @returns {HTMLCollection} LoadingSpinner
    */
-  if (isLoading) {
+  if (loading) {
     return <LoadingSpinner />;
   }
 
@@ -146,7 +149,7 @@ console.log(user);
             </div>
           </div>
           <div className="p-8 ...">
-            <CalendarView />
+            <CalendarView  />
           </div>
         </header>
       )}

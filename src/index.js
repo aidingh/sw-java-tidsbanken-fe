@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from "redux-persist/lib/storage";
-
+import { useLocation } from "react-router-dom"
 /**
  * Configuration object for redux-persist.
  */
@@ -58,6 +58,10 @@ const store = configureStore({
  * @param {Object} store Applications redux store.
  */
 let persistor = persistStore(store);
+
+if(window.location.href == 'http://localhost:3000/'){
+  persistor.purge(store);
+}
 
 ReactDOM.render(
   <React.StrictMode>
