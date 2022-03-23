@@ -7,6 +7,13 @@ import ApplicationFrame from "../Elements/ApplicationFrame";
 import InputComponent from "../Components/InputComponent"
 import { patchData,useFetch } from "../Service/TimeBankService";
 
+
+/**
+ * Shows the users profile information, including email and nickname.
+ * Have the option to edit the information.
+ * Changing of the password is also triggered from this page. 
+ * @returns {ProfilePage} 
+ */
 function ProfilePage() {
   
   const [buttonText,setButtonText] = useState('Enable Edit Mode');
@@ -79,7 +86,7 @@ function ProfilePage() {
     let startPagePath = "http://localhost:3000/";
     logout({ startPagePath });
   }
-  
+
   return (
     <>
     {!isAuthenticated && <Navigate to="/" />}
