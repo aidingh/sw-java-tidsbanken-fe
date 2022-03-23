@@ -94,6 +94,7 @@ const CalendarView = () => {
   useEffect(async () => {
     if (state.jwt_token != "") {
       setVacationRequests();
+      console.log(eventData);
     }
   }, [state]);
 
@@ -113,7 +114,12 @@ const CalendarView = () => {
         bearer
       );
       approvedVacationsJson.forEach((vacationRequest) => {
-        setSingleVacationRequest(approvedColor, vacationRequest, events);
+        let splitUserModel = vacationRequest.userModel.split("/");
+        if (splitUserModel[4] === userId) {
+          return;
+        } else {
+          setSingleVacationRequest(approvedColor, vacationRequest, events);
+        }
       });
 
       const userVacationRequestsJson = await useFetch(
