@@ -8,7 +8,7 @@ import { postData } from '../Service/TimeBankService';
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const VacationRequestFormPage = ({ handleOpen }) => {
+const VacationRequestFormPage = ({ handleOpen, setEventData, eventData }) => {
     const [fromValue, setFrom] = useState([null, null]);
     const [toValue, setTo] = useState([null, null]);
     const [title, setTitle] = useState('');
@@ -20,7 +20,7 @@ const VacationRequestFormPage = ({ handleOpen }) => {
     * Get the value of title input on change
     * @param {event} event Fires the handleOnChange event.
     */
-    function handleOnChange(event) {
+    function handleOnChange(event,) {
         setTitle(event.target.value);
     }
 
@@ -28,20 +28,30 @@ const VacationRequestFormPage = ({ handleOpen }) => {
     * Submits the vacation request
     * @param {event} event Fires the handleSubmit event.
     */
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         const splitUserId = user.sub.split("|");
         const userId = splitUserId[1];
         event.preventDefault();
-        postData(`http://localhost:8080/api/v1/vacation/${userId}/create`, bearer,
+        let post = await postData(`http://localhost:8080/api/v1/vacation/${userId}/create`, bearer,
             {
                 title: title,
                 startPeriod: fromValue,
                 endPeriod: toValue,
             }
         );
+        let vacationRequest = {
+            vacationRequestId: post.id,
+            status: post.status,
+            title: post.title,
+            start: post.startPeriod,
+            end: post.endPeriod,
+            color: "#F7CB73",
+            textColor: "#000000",
+        };
         setTitle('');
         setFrom([null, null]);
         setTo([null, null]);
+        setEventData([...eventData, vacationRequest]);
         handleOpen();
     }
 
