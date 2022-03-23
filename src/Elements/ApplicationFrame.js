@@ -2,6 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+/**
+ * ApplicationFrame is a component that can be used in several views.
+ * It handles page navigation and will display tabs depending on the user role.
+ * @returns {ApplicationFrame} 
+ */
 const ApplicationFrame = ({ startLogOutAction }) => {
   const state = useSelector((state) => state.token_reducer.value);
 

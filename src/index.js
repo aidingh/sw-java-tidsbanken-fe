@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from "redux-persist/lib/storage";
-import { useLocation } from "react-router-dom"
+
 /**
  * Configuration object for redux-persist.
  */
@@ -28,7 +28,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, tokenReducer);
 
 /**
- * Auth0 config parameters 
+ * Auth0 config parameters.
  */
 const redirect = "http://localhost:3000/home";
 const domain = "dev-377qri7m.eu.auth0.com";
