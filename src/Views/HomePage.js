@@ -89,7 +89,7 @@ const HomePage = () => {
   async function getUserRole(clientId) {
     const bearer = `Bearer ${await getToken()}`;
     let data = await useFetch(
-      `http://localhost:8080/api/v1/user/role/${clientId}`,
+      `https://time-bank-api-be.herokuapp.com/api/v1/user/role/${clientId}`,
       bearer
     );
     return data[0].name;

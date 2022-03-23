@@ -21,7 +21,8 @@ export const useFetch = async (url, bearer, successCallback) => {
     return data;
 
   } catch (error) {
-    console.error(error);
+    console.log("heej" + error)
+    console.error(error + "heeeeeeeej");
   }
 };
 

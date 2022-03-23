@@ -64,7 +64,7 @@ const CalendarView = () => {
   const deleteVacationRequest = () => {
     let events = [];
     events = [...eventData];
-    deleteData(`http://localhost:8080/api/v1/vacation/${vacationRequestId}`, bearer);
+    deleteData(`https://time-bank-api-be.herokuapp.com/api/v1/vacation/${vacationRequestId}`, bearer);
     events.splice(events.findIndex(event => event.vacationRequestId === vacationRequestId), 1);
     setEventData(events);
   };
@@ -79,7 +79,7 @@ const CalendarView = () => {
       status: status
     };
     let events = [];
-    const patch = await patchData(`http://localhost:8080/api/v1/vacation/${vacationRequestId}`, bearer, body);
+    const patch = await patchData(`https://time-bank-api-be.herokuapp.com/api/v1/vacation/${vacationRequestId}`, bearer, body);
     for (const event of eventData) {
       if (event.vacationRequestId === patch.id) {
         event.status = status;
@@ -101,7 +101,7 @@ const CalendarView = () => {
     const events = [];
     if (role == "Admin") {
       let vacationsJson = await useFetch(
-        "http://localhost:8080/api/v1/vacation/all",
+        "https://time-bank-api-be.herokuapp.com/api/v1/vacation/all",
         bearer
       );
       vacationsJson.forEach((vacation) => {
@@ -109,20 +109,24 @@ const CalendarView = () => {
       });
     } else {
       const approvedVacationsJson = await useFetch(
-        "http://localhost:8080/api/v1/vacation/approved",
+        "https://time-bank-api-be.herokuapp.com/api/v1/vacation/approved",
         bearer
       );
-      approvedVacationsJson.forEach((vacationRequest) => {
-        let splitUserModel = vacationRequest.userModel.split("/");
-        if (splitUserModel[4] === userId) {
-          return;
-        } else {
-          setSingleVacationRequest(approvedColor, vacationRequest, events);
-        }
-      });
+
+      if(approvedVacationsJson.status === 200){
+        approvedVacationsJson.forEach((vacationRequest) => {
+          let splitUserModel = vacationRequest.userModel.split("/");
+          if (splitUserModel[4] === userId) {
+            return;
+          } else {
+            setSingleVacationRequest(approvedColor, vacationRequest, events);
+          }
+        });
+
+      }
 
       const userVacationRequestsJson = await useFetch(
-        `http://localhost:8080/api/v1/vacation/${userId}`,
+        `https://time-bank-api-be.herokuapp.com/api/v1/vacation/${userId}`,
         bearer
       );
       try {

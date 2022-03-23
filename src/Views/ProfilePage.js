@@ -37,7 +37,7 @@ function ProfilePage() {
    */
   async function changePass() {
     const bearer = `Bearer ${state.jwt_token}`;
-    await useFetch( `http://localhost:8080/api/v1/user/changePassword/${user.email}`, bearer,() => {
+    await useFetch( `https://time-bank-api-be.herokuapp.com/api/v1/user/changePassword/${user.email}`, bearer,() => {
       alert("You have received a link to change password on your email.");
     })
   }
@@ -63,7 +63,7 @@ function ProfilePage() {
       setButtonText("Updating....")
       const userId = user.sub.split('|');
 
-     const patchedUserData =  patchData("http://localhost:8080/api/v1/updateUser",bearer,{
+     const patchedUserData =  patchData("https://time-bank-api-be.herokuapp.com/api/v1/updateUser",bearer,{
         "id":userId[1],
         "nickname":nickname,
         "email":email

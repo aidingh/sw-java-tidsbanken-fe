@@ -30,7 +30,7 @@ const persistedReducer = persistReducer(persistConfig, tokenReducer);
 /**
  * Auth0 config parameters.
  */
-const redirect = "http://localhost:3000/home";
+const redirect = "https://time-bank-app-fe.herokuapp.com/home";
 const domain = "dev-377qri7m.eu.auth0.com";
 const audience = "https://time.bank.com";
 const clientId = "5F9MNB2qBN9dR6JxAdwF2zjVKic8ZBwh";
@@ -59,7 +59,7 @@ const store = configureStore({
  */
 let persistor = persistStore(store);
 
-if(window.location.href == 'http://localhost:3000/'){
+if(window.location.href == 'https://time-bank-app-fe.herokuapp.com/'){
   persistor.purge(store);
 }
 

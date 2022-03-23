@@ -60,7 +60,7 @@ const CreateUserPage = () => {
     }
 
     postData(
-      `http://localhost:8080/api/v1/createUser`,
+      `https://time-bank-api-be.herokuapp.com/api/v1/createUser`,
       bearer,
       {
         firstName: firstName,

@@ -34,7 +34,7 @@ const VacationRequestFormPage = ({ handleOpen, setEventData, eventData }) => {
         const splitUserId = user.sub.split("|");
         const userId = splitUserId[1];
         event.preventDefault();
-        let post = await postData(`http://localhost:8080/api/v1/vacation/${userId}/create`, bearer,
+        let post = await postData(`https://time-bank-api-be.herokuapp.com/api/v1/vacation/${userId}/create`, bearer,
             {
                 title: title,
                 startPeriod: fromValue,
