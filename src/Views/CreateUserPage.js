@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 import ApplicationFrame from "../Elements/ApplicationFrame";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
-
+/**
+ * Page where a Admin can create a user with either admin or employee role.
+ * @returns {CreateUserPage}
+ */
 const CreateUserPage = () => {
   const { logout, isAuthenticated } = useAuth0();
   const token = useSelector((state) => state.token_reducer.value);
@@ -31,6 +34,12 @@ const CreateUserPage = () => {
     setEmail(event.target.value);
   }
 
+  /**
+   * Validates the given data.
+   * Then makes a post request for a user to be created with that data. 
+   * @param {Object} event 
+   * @returns 
+   */
   async function submitForm(event) {
     event.preventDefault();
     setButtonText("Creating User....");
@@ -74,6 +83,11 @@ const CreateUserPage = () => {
     );
   }
 
+  /**
+   * Validates that the given string is an email adress
+   * @param {String} email email to be validated. 
+   * @returns 
+   */
   function validEmail(email) {
     const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -84,6 +98,11 @@ const CreateUserPage = () => {
     }
   }
 
+  /**
+   * Validates the given name.
+   * @param {String} name 
+   * @returns 
+   */
   function validName(name) {
     const regName = /^[a-zA-Z]+$/;
 

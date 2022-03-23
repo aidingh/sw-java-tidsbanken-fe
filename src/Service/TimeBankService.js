@@ -5,7 +5,7 @@
  * @param {String} bearer The bearer token
  * @return {Object} The fetched data
  */
-export const useFetch = async (url, bearer) => {
+export const useFetch = async (url, bearer, successCallback) => {
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -16,6 +16,8 @@ export const useFetch = async (url, bearer) => {
     });
 
     const data = await response.json();
+
+    successCallback?.();
     return data
     
   } catch (error) {
@@ -28,6 +30,7 @@ export const useFetch = async (url, bearer) => {
  * @param {String} url The API url with endpoint
  * @param {String} bearer The bearer token
  * @param {Object} body The data you want to post
+ * @param {Object} successCallback callback used when request was successfull.
  * @return {Object} The data that is posted
  */
 export const postData = async (url, bearer, body, successCallback) => {
@@ -54,6 +57,14 @@ export const postData = async (url, bearer, body, successCallback) => {
   }
 };
 
+/**
+ * A function to Patch data
+ * @param {String} url The API url with endpoint
+ * @param {String} bearer The bearer token
+ * @param {Object} body The data you want to post
+ * @param {Object} successCallback callback used when request was successfull.
+ * @return {Object} The data that is posted
+ */
 export const patchData = async (url, bearer, body, successCallback) => {
   try {
     const response = fetch(url, {
