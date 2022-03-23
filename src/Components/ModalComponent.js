@@ -22,7 +22,8 @@ const ModalComponent = ({ handleOpen, open, children }) => {
 
 ModalComponent.prototypes = {
   handleOpen: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  children: PropTypes.children
 };
 
 

@@ -39,6 +39,10 @@ const CalendarView = () => {
     setOpen(!open);
   };
 
+  /**
+   * Handle Submit based on button value
+   * @param {click} event The click event 
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     if (event.target.value === "accept") {
@@ -147,6 +151,10 @@ const CalendarView = () => {
     });
   }
 
+  /**
+   * Displays different calendar based on if you are a admin or not.
+   * @return {Component} FullCalendar Component
+   */
   const displayFullCalender = () => {
     if (role === "Admin") {
       return <FullCalendar

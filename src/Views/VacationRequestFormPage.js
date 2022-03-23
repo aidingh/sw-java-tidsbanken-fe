@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import { postData } from '../Service/TimeBankService';
 import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import PropTypes from 'prop-types';
+
 
 const VacationRequestFormPage = ({ handleOpen, setEventData, eventData }) => {
     const [fromValue, setFrom] = useState([null, null]);
@@ -25,7 +27,7 @@ const VacationRequestFormPage = ({ handleOpen, setEventData, eventData }) => {
     }
 
     /**
-    * Submits the vacation request
+    * Submits the vacation request and re-render the calendar.
     * @param {event} event Fires the handleSubmit event.
     */
     async function handleSubmit(event) {
@@ -98,5 +100,11 @@ const VacationRequestFormPage = ({ handleOpen, setEventData, eventData }) => {
         </form>
     );
 };
+VacationRequestFormPage.prototypes = {
+    handleOpen: PropTypes.func,
+    setEventData: PropTypes.array,
+    eventData: PropTypes.array,
+};
+
 
 export default VacationRequestFormPage;

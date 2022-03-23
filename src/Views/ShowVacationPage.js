@@ -5,6 +5,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
 
 
 const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate, handleSubmit }) => {
@@ -51,6 +52,13 @@ const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate, h
             </div>
         </form>
     );
+};
+
+ShowVacationPage.prototypes = {
+    vacationTitle: PropTypes.string,
+    vacationStartDate: PropTypes.string,
+    vacationEndDate: PropTypes.string,
+    handleSubmit: PropTypes.func
 };
 
 export default ShowVacationPage;
