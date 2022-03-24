@@ -59,6 +59,11 @@ const store = configureStore({
  */
 let persistor = persistStore(store);
 
+/**
+ * This check is to clear the persisted state from the storage completely.
+ * Without it the values in the state will be cleared but not the object itself.
+ * This solution works fine for the moment as local storage should be cleared when getting redirected to the LoginPage.
+ */
 if(window.location.href == 'https://time-bank-app-fe.herokuapp.com/'){
   persistor.purge(store);
 }
