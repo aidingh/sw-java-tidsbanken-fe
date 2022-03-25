@@ -8,13 +8,13 @@ import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 
 
-const ShowVacationPage = ({ vacationTitle, vacationStartDate, vacationEndDate, handleSubmit }) => {
-    const { user } = useAuth0();
+const ShowVacationPage = ({ name, vacationTitle, vacationStartDate, vacationEndDate, handleSubmit }) => {
+
     return (
         <form className="w-96 h-96 bg-white m-auto flex flex-col">
             <div className='self-center mt-6'>
                 <FormInputComponent isDisabled
-                    label='Name' type='text' value={user.nickname} />
+                    label='Name' type='text' value={name} />
             </div>
             <div className='self-center mt-6'>
                 <FormInputComponent isDisabled

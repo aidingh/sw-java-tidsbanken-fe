@@ -17,6 +17,7 @@ const CalendarView = () => {
   const [vacationTitle, setVacationTitle] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [name, setName] = useState('');
   const [vacationRequestId, setVacationRequestId] = useState('');
   const state = useSelector((state) => state.token_reducer.value);
   const bearer = `Bearer ${state.jwt_token}`;
@@ -112,8 +113,7 @@ const CalendarView = () => {
         "https://time-bank-api-be.herokuapp.com/api/v1/vacation/approved",
         bearer
       );
-
-      if(approvedVacationsJson.status === 200){
+      if(approvedVacationsJson.status != 500){
         approvedVacationsJson.forEach((vacationRequest) => {
           let splitUserModel = vacationRequest.userModel.split("/");
           if (splitUserModel[4] === userId) {
@@ -122,8 +122,8 @@ const CalendarView = () => {
             setSingleVacationRequest(approvedColor, vacationRequest, events);
           }
         });
-
       }
+
 
       const userVacationRequestsJson = await useFetch(
         `https://time-bank-api-be.herokuapp.com/api/v1/vacation/${userId}`,
@@ -178,11 +178,15 @@ const CalendarView = () => {
         events={eventData}
         eventClick={
           (arg) => {
+
             const title = arg.event.title;
+            let name  = title.split(" ");
+            name  = name[0] + " " + name[1];
             const startDate = arg.event.start;
             const endDate = arg.event.end;
             const vacationRequestId = arg.event.extendedProps.vacationRequestId;
             setVacationTitle(title);
+            setName(name);
             setStartDate(startDate);
             setEndDate(endDate);
             setVacationRequestId(vacationRequestId);
@@ -218,7 +222,7 @@ const CalendarView = () => {
       }
       <ModalComponent handleOpen={handleOpen} open={open}>
         {
-          role === "Admin" ? <ShowVacationPage vacationTitle={vacationTitle} vacationStartDate={startDate} vacationEndDate={endDate} handleSubmit={handleSubmit} /> : <VacationRequestFormPage handleOpen={handleOpen} setEventData={setEventData} eventData={eventData} />
+          role === "Admin" ? <ShowVacationPage name={name} vacationTitle={vacationTitle} vacationStartDate={startDate} vacationEndDate={endDate} handleSubmit={handleSubmit} /> : <VacationRequestFormPage handleOpen={handleOpen} setEventData={setEventData} eventData={eventData} />
         }
       </ModalComponent>
     </>

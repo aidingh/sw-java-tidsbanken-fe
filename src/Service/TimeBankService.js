@@ -21,8 +21,7 @@ export const useFetch = async (url, bearer, successCallback) => {
     return data;
 
   } catch (error) {
-    console.log("heej" + error)
-    console.error(error + "heeeeeeeej");
+    console.error(error);
   }
 };
 
@@ -78,13 +77,15 @@ export const patchData = async (url, bearer, body, successCallback) => {
       body: JSON.stringify(body),
     });
 
-    if ((await response).ok) {
+    if ((await response).status === 200) {
       const data = (await response).json();
       successCallback?.();
       return data;
     }
+    else{
+      return (await response).status;
+    }
 
-    console.error(await (await response).text());
   } catch (error) {
     console.error(error);
   }
