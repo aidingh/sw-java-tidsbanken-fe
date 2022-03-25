@@ -50,7 +50,7 @@ function ProfilePage() {
    * Changes the button text and unlocks the fields for edit.
    * Performs a patch request with the updated information.
    */
-  function editUserInformation(){
+  async function editUserInformation(){
     if(isDisabled)
     {
       // Enter Edit Mode
@@ -63,19 +63,29 @@ function ProfilePage() {
       setButtonText("Updating....")
       const userId = user.sub.split('|');
 
-     const patchedUserData =  patchData("https://time-bank-api-be.herokuapp.com/api/v1/updateUser",bearer,{
-        "id":userId[1],
-        "nickname":nickname,
-        "email":email
-      });
-
-      if(patchedUserData){
+      let patchedUserData = await pathUserRequest(userId)
+  
+      if(patchedUserData !== 204){
         alert("succesfully updated user");
         setButtonText('Enable Edit Mode');
         logout();
       }
+      else if(patchedUserData === 204){
+        alert("Email already exists");
+        setButtonText('Enable Edit Mode');
+      }
       setIsDisabled(true);
     }
+  }
+
+  async function pathUserRequest(userId){
+    const patchedUserData =  await patchData("https://time-bank-api-be.herokuapp.com/api/v1/updateUser",bearer,{
+      "id":userId[1],
+      "nickname":nickname,
+      "email":email
+    });
+
+    return patchedUserData;
   }
   
   function onNicknameChange(event){

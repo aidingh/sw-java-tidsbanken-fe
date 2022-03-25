@@ -33,7 +33,7 @@ const persistedReducer = persistReducer(persistConfig, tokenReducer);
 const redirect = "https://time-bank-app-fe.herokuapp.com/home";
 const domain = "dev-377qri7m.eu.auth0.com";
 const audience = "https://time.bank.com";
-const clientId = "5F9MNB2qBN9dR6JxAdwF2zjVKic8ZBwh";
+const clientId = "FEb8ohkzyJSm0YVc4ranHCBbVzdVlRg7";
 
 /**
  * Define a redux-store-object.
@@ -58,6 +58,12 @@ const store = configureStore({
  * @param {Object} store Applications redux store.
  */
 let persistor = persistStore(store);
+
+/**
+ * This check is to clear the persisted state from the storage completely.
+ * Without it the values in the state will be cleared but not the object itself.
+ * This solution works fine for the moment as local storage should be cleared when getting redirected to the LoginPage.
+ */
 
 if(window.location.href == 'https://time-bank-app-fe.herokuapp.com/'){
   persistor.purge(store);

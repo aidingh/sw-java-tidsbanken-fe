@@ -118,8 +118,6 @@ const HomePage = () => {
    * @returns {void}
    */
   function startLogOutAction() {
-    //let startPagePath = "http://localhost:3000/";
-    //logout({ startPagePath });
     logout();
   }
 

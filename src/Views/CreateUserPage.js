@@ -113,6 +113,13 @@ const CreateUserPage = () => {
     }
   }
 
+  /**
+   * Function will sign out the current user and redirect back to LoginPage.
+   * Function will use Auth0s hook function (logout) to achieve this.
+   *
+   * @param {void}
+   * @returns {void}
+   */
   function startLogOutAction() {
       logout();
   }
