@@ -33,7 +33,7 @@ const persistedReducer = persistReducer(persistConfig, tokenReducer);
 const redirect = "https://time-bank-app-fe.herokuapp.com/home";
 const domain = "dev-377qri7m.eu.auth0.com";
 const audience = "https://time.bank.com";
-const clientId = "FEb8ohkzyJSm0YVc4ranHCBbVzdVlRg7";
+const clientId = "5F9MNB2qBN9dR6JxAdwF2zjVKic8ZBwh";
 
 /**
  * Define a redux-store-object.
